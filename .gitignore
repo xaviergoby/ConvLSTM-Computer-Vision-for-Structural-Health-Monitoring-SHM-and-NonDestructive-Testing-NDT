@@ -6,6 +6,15 @@ __pycache__/
 # C extensions
 *.so
 
+# ADDED BY ME AND COPIED FROM Deep-Learning-Structural-Crack-Detection-And-Classification REPO
+*.pyc
+*~
+.idea/*
+__pycache__/*
+*.iml
+*.pyc
+
+
 # Distribution / packaging
 .Python
 build/

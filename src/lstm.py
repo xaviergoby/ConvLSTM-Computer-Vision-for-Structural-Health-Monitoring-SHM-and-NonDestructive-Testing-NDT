@@ -11,16 +11,16 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 def readData():
-    # Get labels from the labels.txt file
-    labels = pd.read_csv('label.csv', header = None)
-    labels = labels.values
-    #labels = labels-1
-    print('One Hot Encoding Data...')
-    labels = to_categorical(labels)
+	# Get labels from the labels.txt file
+	labels = pd.read_csv('label.csv', header = None)
+	labels = labels.values
+	#labels = labels-1
+	print('One Hot Encoding Data...')
+	labels = to_categorical(labels)
 
-    data = pd.read_csv('data.csv', header = None)
-    
-    return data, labels
+	data = pd.read_csv('data.csv', header = None)
+
+	return data, labels
 
 print('Reading data...')
 data, labels = readData()
@@ -42,7 +42,7 @@ model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['ac
 
 print('Training NN...')
 history = model.fit(data_train, labels_train, epochs=100, batch_size=5,
-    validation_split=0.25,verbose=1)
+	validation_split=0.25,verbose=1)
 
 results = model.evaluate(data_test, labels_test)
 
