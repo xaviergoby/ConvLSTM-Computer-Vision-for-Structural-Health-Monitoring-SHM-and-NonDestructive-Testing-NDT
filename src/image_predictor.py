@@ -24,7 +24,7 @@ class ImagePredictor:
 		self.image_channels = self.model_input_shape[3]
 
 
-	def _load_image(self, full_img_path):
+	def __load_image(self, full_img_path):
 		# """
 		# :param full_img_path: the full path to the image file
 		# e.g. C:\Users\JohnDoe\LSTMforSHM\data\images\test\1\Cr_percent_10_crack_angle_15_2.png
@@ -33,14 +33,14 @@ class ImagePredictor:
 		img = image.load_img(full_img_path, target_size=(self.image_width, self.image_height))
 		return img
 
-	def _img_transformer(self, img):
+	def __img_transformer(self, img):
 		img_array = image.img_to_array(img)
 		img_array = img_array / 255
 		img_array = np.expand_dims(img_array, axis = 0)
 		ready_img_array = np.vstack([img_array])
 		return ready_img_array
 
-	def _get_pred_prob_pcts(self, img_array):
+	def __get_pred_prob_pcts(self, img_array):
 		"""
 		:param img_array: array representation of an image
 		:return: an array of the prob % of each class
@@ -50,7 +50,7 @@ class ImagePredictor:
 		return class_pred_prob_pcts
 
 	def get_pred_prob_pcts(self, img_array):
-		return self._get_pred_prob_pcts(img_array)
+		return self.__get_pred_prob_pcts(img_array)
 
 	def _get_pred_class_label(self, img_array):
 		class_pred_label = self.model.predict_classes(img_array)
@@ -60,21 +60,21 @@ class ImagePredictor:
 	def get_pred_class_label(self, img_array):
 		return self._get_pred_class_label(img_array)
 
-	def _print_info(self, img_file_name, class_pred_prob_pcts, class_pred_label):
+	def __print_info(self, img_file_name, class_pred_prob_pcts, class_pred_label):
 		print("\nImage file name: {0}\nPredicted class label probabilities: {1}"
 		      "\nPredicted class label: {2}".format(img_file_name, class_pred_prob_pcts, class_pred_label))
 
 	def get_pred_label_by_img_file_path(self, file_path, print_info = False):
 
-		img = self._load_image(file_path)
-		img_array = self._img_transformer(img)
-		class_pred_prob_pcts = self._get_pred_prob_pcts(img_array)
+		img = self.__load_image(file_path)
+		img_array = self.__img_transformer(img)
+		class_pred_prob_pcts = self.__get_pred_prob_pcts(img_array)
 		class_pred_label = self._get_pred_class_label(img_array)
 		if print_info is True:
-			self._print_info(file_path, class_pred_prob_pcts, class_pred_label)
+			self.__print_info(file_path, class_pred_prob_pcts, class_pred_label)
 		return class_pred_label, class_pred_prob_pcts, file_path
 
-	def _predict_by_label(self, label):
+	def __predict_by_label(self, label):
 		"""
 		:param label: int or str of class label for which
 		predictions of all associated images are to be made
@@ -93,12 +93,12 @@ class ImagePredictor:
 		predictions of all associated images are to be made
 		:return: a numpy array containing the all the predicted class labels
 		"""
-		return np.asarray(self._predict_by_label(label))
+		return np.asarray(self.__predict_by_label(label))
 
 	def get_all_test_class_labels(self):
 		return  ImageDataSource().get_all_test_class_labels()
 
-	def _get_all_test_image_preds(self):
+	def __get_all_test_image_preds(self):
 		"""
 		This function handles the proces of using a trained model to generate predictions of the class
 		labels of each and everyone of the images contained within the test images directory
@@ -117,7 +117,7 @@ class ImagePredictor:
 		return pred_class_labels_list, true_class_labels_list
 
 	def get_all_test_image_preds(self):
-		return self._get_all_test_image_preds()
+		return self.__get_all_test_image_preds()
 
 	def get_confusion_matrix(self, true_class_labels = None, pred_class_labels = None):
 		"""
