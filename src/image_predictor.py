@@ -139,5 +139,5 @@ class ImagePredictor:
 if __name__ == "__main__":
 	pred_obj = ImagePredictor("predictor.h5")
 	conf_mat = pred_obj.get_confusion_matrix()
-	from src import viz_tool
-	viz_tool.VisTool().plot_confusion_matrix(conf_mat, pred_obj.get_all_test_class_labels())
+	from src import lstm_predictor
+	lstm_predictor.VisTool().plot_confusion_matrix(conf_mat, pred_obj.get_all_test_class_labels())
