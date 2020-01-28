@@ -65,7 +65,7 @@ class VisTool:
 		plt.show()
 
 if __name__ == "__main__":
-	from src.load_lstm_data import LSTMDataSource
+	from data_tools.load_lstm_data import LSTMDataSource
 	src = LSTMDataSource()
 	data = src.get_ts_data_by_sample_idx(0)
 	dict_data = src.get_ts_data_by_label(2)

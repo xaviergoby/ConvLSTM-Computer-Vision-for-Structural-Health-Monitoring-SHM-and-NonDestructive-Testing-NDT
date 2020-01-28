@@ -17,6 +17,6 @@ def verify_and_fix_data(X, y, time_steps = None,
 	:param batch_size: number of time steps/rows of X per batch/sequence/time series
 	:param features: tot num of features/num of cols of X
 	:param num_of_class_labels: tot num of class labels for classification
-	:return: X w/ shape (time_steps, batch_size, features & y w/ shape (time_steps, num_of_class_labels
+	:return: X w/ shape (time_steps, batch_size, features &
+	y w/ shape (time_steps, num_of_class_labels)
 	"""
-	
