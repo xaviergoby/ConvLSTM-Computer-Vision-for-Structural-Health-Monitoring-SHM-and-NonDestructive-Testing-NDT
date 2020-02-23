@@ -11,6 +11,8 @@ data = [
     [1,1,1,1,0,0,0,1,1,0]
 ]
 
+import matplotlib
+matplotlib.use('module://backend_interagg')
 import matplotlib.pyplot as plt
 
 plt.imshow(data)

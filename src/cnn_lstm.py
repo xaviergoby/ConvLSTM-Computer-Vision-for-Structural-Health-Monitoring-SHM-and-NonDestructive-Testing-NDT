@@ -71,13 +71,13 @@ X, y = generate_examples(size, 5000)
 model.fit(X, y, batch_size=32, epochs=1)
 
 # evaluate model
-X, y = generate_examples(size, 100)
-loss, acc = model.evaluate(X, y, verbose=0)
-print('loss: %f, acc: %f' % (loss, acc*100))
+# X, y = generate_examples(size, 100)
+# loss, acc = model.evaluate(X, y, verbose=0)
+# print('loss: %f, acc: %f' % (loss, acc*100))
 
 # prediction on new data
-X, y = generate_examples(size, 1)
-yhat = model.predict_classes(X, verbose=0)
-expected = "Right" if y[0]==1 else "Left"
-predicted = "Right" if yhat[0]==1 else "Left"
-print('Expected: %s, Predicted: %s' % (expected, predicted))
+# X, y = generate_examples(size, 1)
+# yhat = model.predict_classes(X, verbose=0)
+# expected = "Right" if y[0]==1 else "Left"
+# predicted = "Right" if yhat[0]==1 else "Left"
+# print('Expected: %s, Predicted: %s' % (expected, predicted))

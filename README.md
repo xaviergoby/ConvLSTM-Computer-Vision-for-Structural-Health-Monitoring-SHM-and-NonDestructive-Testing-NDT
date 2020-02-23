@@ -1,5 +1,30 @@
 # Log-Journal, Data Characteristics & Background Information
 
+## Notes:
+
+The CNN subsection/layers is/are used for performing feature on the
+input data.
+   
+The LSTM subsection/layers is/are used for providing sequential
+prediction capability. In other words, the LSTM subsection/layers are
+used in order to support the ability of providing a sequence of images
+as input data as opposed to only a single image. Alternatively, the LSTM
+subsection/layers can be used for generating a sequence in response to an
+input image provided.
+
+Sequence Prediction Example: Given the input of multiple time steps of
+a damped sine wave, predict the next few time steps of the sequence.    
+
+The 1st hidden layer of an LSTM must define the number of inputs which
+is to be expected e.g. "the shape of the input layer". The shape of the
+data which his input to an LSTM (i.e. @ the 1st LSTM hidden layer) must
+be 3D and specify the following:
+- The number of samples. 1 sample = 1 sequence
+- The number of time-steps. This is the # of past observations for a
+  feature e.g. lag variables.
+- The number of features
+
+
 ## Log-Journal:
 
 
@@ -90,6 +115,28 @@ _____________________________________________________________________
     
     Reimplement ConvLSTM w/o using Keras Conv2DLSTM layer but instead using functional API
 _____________________________________________________________________
+# Network Input Layer and Input Data Shapes Notes:
+
+A Conv2D layer requires four dimensions, not three: (batch_size, width, height, channels)
+
+And the TimeDistributed will require an additional dimension: (batch_size, frames, width, height, channels)
+
+So in order to work with a TimeDistributed + Conv2D layer I need to have 5 dimensions!
+
+E.g. input shape to pass to a TimeDistributed+Conv2D layer: (frames, height, width, channels)
+model.add(TimeDistributed(Dense(....), input_shape = (frames, width, height, channels))
+
+(batch_size, time(_steps), width, height, channels) <=> (batch_size, frames, width, height, channels)
+
+"If you have a black and white video, for instance, then you have only one channel.
+In a numpy array, you can simply reshape it. Suppose you have an array x_train with shape (10,86,28,28).
+Then: x_train=x_train.reshape((10,86,28,28,1))" - source: https://stackoverflow.com/questions/47470385/use-kerastensorflow-to-build-a-conv2dlstm-model
+(10,86,28,28,1) = (batch_size, frames, width, height, channels)
+
+The # of frames (AKA # of time_steps) specifies the number of frames (time_steps) which are processed before an output is returned/provided.
+
+
+
 # Key terms/topics/concepts:
 
 PZT (Effect)
