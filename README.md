@@ -115,6 +115,17 @@ _____________________________________________________________________
     
     Reimplement ConvLSTM w/o using Keras Conv2DLSTM layer but instead using functional API
 _____________________________________________________________________
+###### February 11 & 12 Saturday 2020
+
+    To-Do(s):
+    Meet up with Vincent to discuss the issue of whethe it is seq2seq preds which I am doing or not.
+    TURNS out nope, it is not seq2seq that we are doing but instead the following:
+    I have got to take each image and divide them into smaller frames (along the width of each images, i.e. div of 4101 pixels).
+    Then I assign the class label of the OG raw undivided large image (of width 4101 pxs) to each of the frames obtained from the process mentioned above.
+    Then I feed this and use the grid square moving and pred of direction of movement e.g. to continue working from here on then get back to VBoss
+
+
+_____________________________________________________________________
 # Network Input Layer and Input Data Shapes Notes:
 
 A Conv2D layer requires four dimensions, not three: (batch_size, width, height, channels)
