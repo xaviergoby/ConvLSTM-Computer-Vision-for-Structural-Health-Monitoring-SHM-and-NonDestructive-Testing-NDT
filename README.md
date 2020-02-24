@@ -115,16 +115,25 @@ _____________________________________________________________________
     
     Reimplement ConvLSTM w/o using Keras Conv2DLSTM layer but instead using functional API
 _____________________________________________________________________
-###### February 11 & 12 Saturday 2020
+###### February 11 Tuesday & 12 Wednesday 2020
 
     To-Do(s):
+
     Meet up with Vincent to discuss the issue of whethe it is seq2seq preds which I am doing or not.
     TURNS out nope, it is not seq2seq that we are doing but instead the following:
     I have got to take each image and divide them into smaller frames (along the width of each images, i.e. div of 4101 pixels).
     Then I assign the class label of the OG raw undivided large image (of width 4101 pxs) to each of the frames obtained from the process mentioned above.
     Then I feed this and use the grid square moving and pred of direction of movement e.g. to continue working from here on then get back to VBoss
+_____________________________________________________________________
+###### February 24 Monday 2020
 
+    To-Do(s):
 
+    Go ahead and implement the functionality to permit the slicing up of a single given image into multiple smaller sized images AKA "frames"
+    of equal width(= 4101/num of frames). Then make sure that I also implement the functionality that allows for each frame generated to
+    inherit a class label of its own which is the same of that of the OG raw large unsliced image. Then go ahead and start perform the necessary verification
+    validation of this process and its output for the use case of feeding the output of ImageDataSource() in load_image_data.py into the conv(2d)lstm nn
+    via the init input layer! This'll take time to get right b/c of the nuisance of shape/dimensions compatibility.
 _____________________________________________________________________
 # Network Input Layer and Input Data Shapes Notes:
 
