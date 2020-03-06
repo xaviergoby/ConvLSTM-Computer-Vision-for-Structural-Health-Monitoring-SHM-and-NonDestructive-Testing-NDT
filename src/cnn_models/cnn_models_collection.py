@@ -1,11 +1,13 @@
 from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D
-from keras.layers import Dropout, Flatten, Dense, LeakyReLU
+from keras.layers import LeakyReLU
+from keras.layers import Dense, Dropout, Input
+from keras.layers import Conv2D, MaxPooling2D, Flatten
+from keras.models import Model
 
 
 
 
-def build_simple_cnn_feature_extractor_model(input_shape):
+def build_simple_cnn_feature_extractor_seq_model(input_shape):
 	"""
 	:param input_shape: e.g. (height, width, channels)
 	:return:
@@ -19,7 +21,22 @@ def build_simple_cnn_feature_extractor_model(input_shape):
 	return model
 
 
-def build_vincents_fc_cnn_trainer_model(input_shape, num_classes):
+# Creating a simple CNN model in keras using functional API
+def build_simple_fc_cnn_func_api_model(input_shape, num_classes):
+	img_inputs = Input(shape=input_shape)
+	conv_1 = Conv2D(32, (3, 3), activation='relu')(img_inputs)
+	maxpool_1 = MaxPooling2D((2, 2))(conv_1)
+	conv_2 = Conv2D(64, (3, 3), activation='relu')(maxpool_1)
+	maxpool_2 = MaxPooling2D((2, 2))(conv_2)
+	conv_3 = Conv2D(64, (3, 3), activation='relu')(maxpool_2)
+	flatten = Flatten()(conv_3)
+	dense_1 = Dense(64, activation='relu')(flatten)
+	output = Dense(num_classes, activation='softmax')(dense_1)
+	model = Model(inputs=img_inputs, outputs=output)
+	return model
+
+
+def build_vincents_fc_cnn_seq_trainer_model(input_shape, num_classes):
 	model = Sequential()
 	# CNN
 	model.add(Conv2D(8, (3, 3), input_shape=input_shape))

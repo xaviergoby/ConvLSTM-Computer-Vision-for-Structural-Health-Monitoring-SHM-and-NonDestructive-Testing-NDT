@@ -21,7 +21,7 @@ frames_num = settings.NUM_FRAMES  # number of sequential samples
 
 # CNN 2D Seq Model
 cnn_model_input_tensor_shape = settings.CNN_2D_INPUT_TENSOR_SHAPE
-cnn_model = cnn_models_collection.build_simple_cnn_feature_extractor_model(cnn_model_input_tensor_shape)
+cnn_model = cnn_models_collection.build_simple_cnn_feature_extractor_seq_model(cnn_model_input_tensor_shape)
 
 # TimeDistributed Func API Model
 td_video_input_tensor_shape = settings.TIME_DISTRIBUTED_MODEL_INPUT_TENSOR_SHAPE
