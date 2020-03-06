@@ -19,21 +19,21 @@ num_classes = 9
 
 
 # if K.image_data_format() == 'channels_first':
-	# input_shape = (batch_size, n_channels, image_height, image_width)
-	# input_shape = (frames_per_seq, 3, img_width, img_height)
-	# input_shape = (None, 3, img_width, img_height)
-	# input_shape = (3, img_width, img_height)
-	# input_shape = (channels, img_width, img_height, None)
-	# input_shape = (channels, img_width, img_height, 2)
-# 	input_shape = (channels, img_width, img_height)
+	# cnn_model_input_tensor_shape = (batch_size, n_channels, image_height, image_width)
+	# cnn_model_input_tensor_shape = (frames_per_seq, 3, img_width, img_height)
+	# cnn_model_input_tensor_shape = (None, 3, img_width, img_height)
+	# cnn_model_input_tensor_shape = (3, img_width, img_height)
+	# cnn_model_input_tensor_shape = (channels, img_width, img_height, None)
+	# cnn_model_input_tensor_shape = (channels, img_width, img_height, 2)
+# 	cnn_model_input_tensor_shape = (channels, img_width, img_height)
 # else:
 	# (batch_size, image_height, image_width, n_channels)
-	# input_shape = (frames_per_seq, img_width, img_height, 3)
-	# input_shape = (None, img_width, img_height, 3)
-	# input_shape = (img_width, img_height, 3)
-	# input_shape = (None, img_width, img_height, channels)
-	# input_shape = (2, img_width, img_height, channels)
-	# input_shape = (img_width, img_height, channels)
+	# cnn_model_input_tensor_shape = (frames_per_seq, img_width, img_height, 3)
+	# cnn_model_input_tensor_shape = (None, img_width, img_height, 3)
+	# cnn_model_input_tensor_shape = (img_width, img_height, 3)
+	# cnn_model_input_tensor_shape = (None, img_width, img_height, channels)
+	# cnn_model_input_tensor_shape = (2, img_width, img_height, channels)
+	# cnn_model_input_tensor_shape = (img_width, img_height, channels)
 
 batches_num = 90    # number of batches
 frames_num = 164    # number of sequential samples
@@ -41,10 +41,10 @@ height = 247
 width = 25
 channels = 1
 input_tensor_shape = (frames_num, height, width, channels)
-# input_shape = (channels, img_width, img_height)
-# input_shape = (img_width, img_height, channels)
-# input_shape = (number_of_frames, img_width, img_height, channels)
-# input_shape = (img_width, img_height, channels)
+# cnn_model_input_tensor_shape = (channels, img_width, img_height)
+# cnn_model_input_tensor_shape = (img_width, img_height, channels)
+# cnn_model_input_tensor_shape = (number_of_frames, img_width, img_height, channels)
+# cnn_model_input_tensor_shape = (img_width, img_height, channels)
 input_tensor = Input(shape=input_tensor_shape)
 
 conv1 = TimeDistributed(Conv2D(16, (2, 2), activation="relu"))(input_tensor)
@@ -115,5 +115,5 @@ history = model.fit_generator(training_generator,
 
 print(model.summary)
 # from keras.utils import plot_model
-# plot_model(model, to_file='model.png')
+# plot_model(conv_lstm_model, to_file='conv_lstm_model.png')
 

@@ -60,33 +60,33 @@ def generate_examples(size, n_patterns):
 # configure problem
 size = 50
 
-# define the model
-# model = Sequential()
-# model.add(TimeDistributed(Conv2D(2, (2,2), activation='relu'), input_shape=(None,size,size,1)))
-# model.add(TimeDistributed(MaxPooling2D(pool_size=(2, 2))))
-# model.add(TimeDistributed(Flatten()))
-# model.add(LSTM(50))
-# model.add(Dense(1, activation='sigmoid'))
-# model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
-# print(model.summary())
+# define the conv_lstm_model
+# conv_lstm_model = Sequential()
+# conv_lstm_model.add(TimeDistributed(Conv2D(2, (2,2), activation='relu'), cnn_model_input_tensor_shape=(None,size,size,1)))
+# conv_lstm_model.add(TimeDistributed(MaxPooling2D(pool_size=(2, 2))))
+# conv_lstm_model.add(TimeDistributed(Flatten()))
+# conv_lstm_model.add(LSTM(50))
+# conv_lstm_model.add(Dense(1, activation='sigmoid'))
+# conv_lstm_model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
+# print(conv_lstm_model.summary())
 
-# fit model
+# fit conv_lstm_model
 res = generate_examples(50, 5000)
 X = res[0]
 y = res[1]
 # X, y = generate_examples(size, 5000)
 print(X.shape)
 print(y.shape)
-# model.fit(X, y, batch_size=32, epochs=1)
+# conv_lstm_model.fit(X, y, batch_size=32, epochs=1)
 
-# evaluate model
+# evaluate conv_lstm_model
 # X, y = generate_examples(size, 100)
-# loss, acc = model.evaluate(X, y, verbose=0)
+# loss, acc = conv_lstm_model.evaluate(X, y, verbose=0)
 # print('loss: %f, acc: %f' % (loss, acc*100))
 
 # prediction on new data
 # X, y = generate_examples(size, 1)
-# yhat = model.predict_classes(X, verbose=0)
+# yhat = conv_lstm_model.predict_classes(X, verbose=0)
 # expected = "Right" if y[0]==1 else "Left"
 # predicted = "Right" if yhat[0]==1 else "Left"
 # print('Expected: %s, Predicted: %s' % (expected, predicted))

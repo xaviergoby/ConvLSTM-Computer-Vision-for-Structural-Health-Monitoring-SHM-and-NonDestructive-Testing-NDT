@@ -124,7 +124,7 @@ model.fit_generator(
     validation_steps=nb_validation_samples // batch_size)
 
 model_json = model.to_json()
-with open("model.json", "w") as json_file:
+with open("conv_lstm_model.json", "w") as json_file:
     json_file.write(model_json)
 model.save("predictor.h5")
-print("Saved model to disk")
+print("Saved conv_lstm_model to disk")

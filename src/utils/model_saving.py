@@ -1,4 +1,5 @@
 import datetime
+from keras.utils import plot_model
 
 
 
@@ -13,4 +14,10 @@ def save_trained_model(trained_model, file_name):
 	date_str = datetime.date.today().strftime("%d-%m-%Y")
 	hdf5_file_name = "{0}_{1}.h5".format(file_name, date_str)
 	trained_model.save(hdf5_file_name)
+
+
+def save_model_arch_plot(model, file_name):
+	date_str = datetime.date.today().strftime("%d-%m-%Y")
+	arch_plot_file_name = "{0}_{1}.png".format(file_name, date_str)
+	plot_model(model, to_file=arch_plot_file_name, show_shapes=True, expand_nested=True, show_layer_names=True)
 

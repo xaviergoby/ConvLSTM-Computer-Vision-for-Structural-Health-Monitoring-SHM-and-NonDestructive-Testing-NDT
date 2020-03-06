@@ -14,7 +14,7 @@ class ResearchModels():
     def __init__(self, nb_classes, model, seq_length,
                  saved_model=None, features_length=2048):
         """
-        `model` = one of:
+        `conv_lstm_model` = one of:
             lstm
             lrcn
             mlp
@@ -22,7 +22,7 @@ class ResearchModels():
             c3d
         `nb_classes` = the number of classes to predict
         `seq_length` = the length of our video sequences
-        `saved_model` = the path to a saved Keras model to load
+        `saved_model` = the path to a saved Keras conv_lstm_model to load
         """
 
         # Set defaults.
@@ -37,16 +37,16 @@ class ResearchModels():
         if self.nb_classes >= 10:
             metrics.append('top_k_categorical_accuracy')
 
-        # Get the appropriate model.
+        # Get the appropriate conv_lstm_model.
         if self.saved_model is not None:
-            print("Loading model %s" % self.saved_model)
+            print("Loading conv_lstm_model %s" % self.saved_model)
             self.model = load_model(self.saved_model)
         elif model == 'lstm':
-            print("Loading LSTM model.")
+            print("Loading LSTM conv_lstm_model.")
             self.input_shape = (seq_length, features_length)
             self.model = self.lstm()
         elif model == 'lrcn':
-            print("Loading CNN-LSTM model.")
+            print("Loading CNN-LSTM conv_lstm_model.")
             self.input_shape = (seq_length, 80, 80, 3)
             self.model = self.lrcn()
         elif model == 'mlp':
@@ -74,7 +74,7 @@ class ResearchModels():
 
     def lstm(self):
         """Build a simple LSTM network. We pass the extracted features from
-        our CNN to this model predomenently."""
+        our CNN to this conv_lstm_model predomenently."""
         # Model.
         model = Sequential()
         model.add(LSTM(2048, return_sequences=False,

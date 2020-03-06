@@ -168,6 +168,9 @@ _____________________________________________________________________
     practical purpose, when you have large dataset.
 
     To-Do(s):
+
+    - Focus on modularizing the project more.
+
     - Migrate all CNN, LSTM & MLP models created &/or used so far into their seperate own functions so as to simplify the procedure
     of building/instantiating available models. Have the models be defined within their own respective functions which are then built
     and returned as the output of the functions!

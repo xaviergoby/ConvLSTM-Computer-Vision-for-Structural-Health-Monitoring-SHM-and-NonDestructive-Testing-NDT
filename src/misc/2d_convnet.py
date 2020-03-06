@@ -42,9 +42,9 @@ model = Model(inputs=[seq_of_frames], outputs=op)
 model.compile(loss="binary_crossentropy", metrics=["acc"], optimizer="adam")
 print(model.summary)
 from keras.utils import plot_model
-plot_model(model, to_file='model.png')
+plot_model(model, to_file='conv_lstm_model.png')
 
 
 # X = array(X).reshape(n_patterns, size, size, size, 1)
 
-# model.fit(X, y, batch_size=32, epochs=1)
+# conv_lstm_model.fit(X, y, batch_size=32, epochs=1)

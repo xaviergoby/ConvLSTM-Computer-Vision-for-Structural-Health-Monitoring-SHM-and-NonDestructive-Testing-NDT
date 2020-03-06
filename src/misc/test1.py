@@ -75,16 +75,16 @@ batch_size = 10
 
 
 if K.image_data_format() == 'channels_first':
-	# input_shape = (batch_size, n_channels, image_height, image_width)
-	# input_shape = (frames_per_seq, 3, img_width, img_height)
-	# input_shape = (None, 3, img_width, img_height)
-	# input_shape = (3, img_width, img_height)
+	# cnn_model_input_tensor_shape = (batch_size, n_channels, image_height, image_width)
+	# cnn_model_input_tensor_shape = (frames_per_seq, 3, img_width, img_height)
+	# cnn_model_input_tensor_shape = (None, 3, img_width, img_height)
+	# cnn_model_input_tensor_shape = (3, img_width, img_height)
 	input_shape = (1, img_width, img_height, None)
 else:
 	# (batch_size, image_height, image_width, n_channels)
-	# input_shape = (frames_per_seq, img_width, img_height, 3)
-	# input_shape = (None, img_width, img_height, 3)
-	# input_shape = (img_width, img_height, 3)
+	# cnn_model_input_tensor_shape = (frames_per_seq, img_width, img_height, 3)
+	# cnn_model_input_tensor_shape = (None, img_width, img_height, 3)
+	# cnn_model_input_tensor_shape = (img_width, img_height, 3)
 	input_shape = (None, img_width, img_height, 1)
 
 input_tensor = Input(shape=input_shape)
@@ -122,7 +122,7 @@ model.compile(loss='categorical_crossentropy', metrics=['categorical_accuracy'],
 
 print(model.summary)
 from keras.utils import plot_model
-plot_model(model, to_file='model.png')
+plot_model(model, to_file='conv_lstm_model.png')
 
 
 
@@ -142,7 +142,7 @@ plot_model(model, to_file='model.png')
 # conv_layer = Conv2D(filters=17, kernel_size=(3, 3))
 # output_tensor = conv_layer(input_tensor)
 #
-# In [1]: conv_layer.input_shape
+# In [1]: conv_layer.cnn_model_input_tensor_shape
 # Out[1]: (None, 64, 64, 3)
 #
 # In [2]: conv_layer.output_shape

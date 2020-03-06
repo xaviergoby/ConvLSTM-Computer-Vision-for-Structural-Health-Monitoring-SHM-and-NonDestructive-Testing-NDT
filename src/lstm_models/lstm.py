@@ -30,23 +30,23 @@ print(data.shape, labels.shape)
 # data_train, data_test, labels_train, labels_test = train_test_split(data, labels)
 #
 # print('Building Model...')
-# #Create model
-# model = Sequential()
-# model.add(LSTM(units=32, input_shape = (801,1), return_sequences=True))
-# model.add(LSTM(units=64, return_sequences=True))
-# model.add(LSTM(units=128))
-# model.add(Dropout(0.5))
-# model.add(Dense(128))
-# model.add(Dense(6, activation='softmax'))
-# model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+# #Create conv_lstm_model
+# conv_lstm_model = Sequential()
+# conv_lstm_model.add(LSTM(units=32, cnn_model_input_tensor_shape = (801,1), return_sequences=True))
+# conv_lstm_model.add(LSTM(units=64, return_sequences=True))
+# conv_lstm_model.add(LSTM(units=128))
+# conv_lstm_model.add(Dropout(0.5))
+# conv_lstm_model.add(Dense(128))
+# conv_lstm_model.add(Dense(6, activation='softmax'))
+# conv_lstm_model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
 #
 # print('Training NN...')
-# history = model.fit(data_train, labels_train, epochs=100, batch_size=5,
+# history = conv_lstm_model.fit(data_train, labels_train, epochs=100, batch_size=5,
 # 	validation_split=0.25,verbose=1)
 #
-# results = model.evaluate(data_test, labels_test)
+# results = conv_lstm_model.evaluate(data_test, labels_test)
 #
-# predictions = model.predict(data_test)
+# predictions = conv_lstm_model.predict(data_test)
 #
 # print(predictions[0].shape)
 # print(np.sum(predictions[0]))
