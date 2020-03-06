@@ -35,10 +35,17 @@ num_classes = 9
 	# input_shape = (2, img_width, img_height, channels)
 	# input_shape = (img_width, img_height, channels)
 
+batches_num = 90    # number of batches
+frames_num = 164    # number of sequential samples
+height = 247
+width = 25
+channels = 1
+input_tensor_shape = (frames_num, height, width, channels)
 # input_shape = (channels, img_width, img_height)
-input_shape = (img_width, img_height, channels)
 # input_shape = (img_width, img_height, channels)
-input_tensor = Input(shape=input_shape)
+# input_shape = (number_of_frames, img_width, img_height, channels)
+# input_shape = (img_width, img_height, channels)
+input_tensor = Input(shape=input_tensor_shape)
 
 conv1 = TimeDistributed(Conv2D(16, (2, 2), activation="relu"))(input_tensor)
 # mp1 = TimeDistributed(MaxPooling2D(pool_size=(2, 2)))(conv1)
@@ -71,7 +78,7 @@ model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer="
 
 
 img_data_src = ImageDataSource()
-img_dataset = img_data_src.load_dataset()
+img_dataset = img_data_src.get_dataset()
 X = img_dataset[0]
 # X = X.reshape((X.shape[0], 1, X.shape[1], X.shape[2], X.shape[-1]))
 y = img_dataset[1]
@@ -100,10 +107,10 @@ training_generator = data_gen.flow(X_train, y_train, batch_size=batch_size)
 validation_generator = data_gen.flow(X_val, y_val, batch_size=batch_size)
 
 history = model.fit_generator(training_generator,
-                              steps_per_epoch=train_steps_per_epoch,
-                              epochs=epochs,
-                              validation_data=validation_generator,
-                              validation_steps=val_steps)
+							  steps_per_epoch=train_steps_per_epoch,
+							  epochs=epochs,
+							  validation_data=validation_generator,
+							  validation_steps=val_steps)
 
 
 print(model.summary)

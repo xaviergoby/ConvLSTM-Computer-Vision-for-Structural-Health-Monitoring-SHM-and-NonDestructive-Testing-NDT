@@ -135,6 +135,53 @@ _____________________________________________________________________
     validation of this process and its output for the use case of feeding the output of ImageDataSource() in load_image_data.py into the conv(2d)lstm nn
     via the init input layer! This'll take time to get right b/c of the nuisance of shape/dimensions compatibility.
 _____________________________________________________________________
+###### February 26 Wednesday 2020
+
+    Notes:
+    Reduce 4100 dts AKA img px width down to 4100 which has divisors 1, 2, 4, 5, 10, 20, 25, 41, 50, 82, 100, 164, 205, 410, 820, 1025, 2050
+    4100[ms] = 4.1[s] therefore
+    Let frame pxs width = 25 AKA 1 frame represents 25 [ms] dts
+    4100 / 25 = 164 so there are 164 total frames
+    1000 / 25 = 40
+    1 img is 4100[ms]=4.1[s] long and so I want to be sampling each image at 40 frames per second so as to get 164 frames per img
+
+    To-Do(s):
+
+
+_____________________________________________________________________
+###### March 5 Thursday 2020
+
+    Notes:
+    - "We can define a CNN LSTM model in Keras by first defining the CNN layer or layers, wrapping
+    them in a TimeDistributed layer and then defining the LSTM and output layers. We have
+    two ways to define the model that are equivalent and only differ as a matter of taste. You can
+    define the CNN model first, then add it to the LSTM model by wrapping the entire sequence of
+    CNN layers in a TimeDistributed layer. An alternate, and perhaps easier to read, approach is to wrap each layer in the CNN model
+    in a TimeDistributed layer when adding it to the main model. The benefit of this second approach is that
+    all of the layers appear in the model summary"
+
+    - In keras, fit() is much similar to sklearn's fit method, where you pass array of features as x values and target as y values.
+    You pass your whole dataset at once in fit method. Also, use it if you can load whole data into your memory (small dataset).
+
+    - In fit_generator(), you don't pass the x and y directly, instead they come from a generator. As it is written in keras
+    documentation, generator is used when you want to avoid duplicate data when using multiprocessing. This is for
+    practical purpose, when you have large dataset.
+
+    To-Do(s):
+    - Migrate all CNN, LSTM & MLP models created &/or used so far into their seperate own functions so as to simplify the procedure
+    of building/instantiating available models. Have the models be defined within their own respective functions which are then built
+    and returned as the output of the functions!
+
+    - Work on settings.py for ease of access to frequently used parameter settings
+
+    - Create a main.py file within which combinations of various CNN, LSTM and MLP models and the TimeDistributed layer wrapper
+    can be tested out!
+
+    - Add custom functions for saving trained models either completely (arch + weights + optimizer state) or only
+    partially (e.g. arch)
+
+
+_____________________________________________________________________
 # Network Input Layer and Input Data Shapes Notes:
 
 A Conv2D layer requires four dimensions, not three: (batch_size, width, height, channels)
@@ -155,6 +202,7 @@ Then: x_train=x_train.reshape((10,86,28,28,1))" - source: https://stackoverflow.
 
 The # of frames (AKA # of time_steps) specifies the number of frames (time_steps) which are processed before an output is returned/provided.
 
+E.g. 5dim data shape: (sample, time, width, length, channel)
 
 
 # Key terms/topics/concepts:

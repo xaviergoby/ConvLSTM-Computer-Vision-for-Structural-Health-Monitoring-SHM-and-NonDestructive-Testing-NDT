@@ -2,13 +2,13 @@ from random import random
 from random import randint
 from numpy import array
 from numpy import zeros
-from keras.models import Sequential
-from keras.layers import Conv2D
-from keras.layers import MaxPooling2D
-from keras.layers import LSTM
-from keras.layers import Dense
-from keras.layers import Flatten
-from keras.layers import TimeDistributed
+# from keras.models import Sequential
+# from keras.layers import Conv2D
+# from keras.layers import MaxPooling2D
+# from keras.layers import LSTM
+# from keras.layers import Dense
+# from keras.layers import Flatten
+# from keras.layers import TimeDistributed
 
 # generate the next frame in the sequence
 def next_frame(last_step, last_frame, column):
@@ -42,9 +42,13 @@ def build_frames(size):
 	return frames, right
 
 # generate multiple sequences of frames and reshape for network input
+cnt = 0
 def generate_examples(size, n_patterns):
+	cnt = 0
 	X, y = list(), list()
 	for _ in range(n_patterns):
+		cnt = cnt + 1
+		print(cnt)
 		frames, right = build_frames(size)
 		X.append(frames)
 		y.append(right)
@@ -57,18 +61,23 @@ def generate_examples(size, n_patterns):
 size = 50
 
 # define the model
-model = Sequential()
-model.add(TimeDistributed(Conv2D(2, (2,2), activation='relu'), input_shape=(None,size,size,1)))
-model.add(TimeDistributed(MaxPooling2D(pool_size=(2, 2))))
-model.add(TimeDistributed(Flatten()))
-model.add(LSTM(50))
-model.add(Dense(1, activation='sigmoid'))
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
-print(model.summary())
+# model = Sequential()
+# model.add(TimeDistributed(Conv2D(2, (2,2), activation='relu'), input_shape=(None,size,size,1)))
+# model.add(TimeDistributed(MaxPooling2D(pool_size=(2, 2))))
+# model.add(TimeDistributed(Flatten()))
+# model.add(LSTM(50))
+# model.add(Dense(1, activation='sigmoid'))
+# model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
+# print(model.summary())
 
 # fit model
-X, y = generate_examples(size, 5000)
-model.fit(X, y, batch_size=32, epochs=1)
+res = generate_examples(50, 5000)
+X = res[0]
+y = res[1]
+# X, y = generate_examples(size, 5000)
+print(X.shape)
+print(y.shape)
+# model.fit(X, y, batch_size=32, epochs=1)
 
 # evaluate model
 # X, y = generate_examples(size, 100)
