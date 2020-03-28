@@ -4,9 +4,6 @@ from keras.layers import Dense, Dropout, Input
 from keras.layers import Conv2D, MaxPooling2D, Flatten
 from keras.models import Model
 
-
-
-
 def build_simple_cnn_feature_extractor_seq_model(input_shape):
 	"""
 	:param input_shape: e.g. (height, width, channels)
@@ -34,7 +31,6 @@ def build_simple_fc_cnn_func_api_model(input_shape, num_classes):
 	output = Dense(num_classes, activation='softmax')(dense_1)
 	model = Model(inputs=img_inputs, outputs=output)
 	return model
-
 
 def build_vincents_fc_cnn_seq_trainer_model(input_shape, num_classes):
 	model = Sequential()

@@ -114,13 +114,6 @@ class ImageDataSource:
 		all_X_frames = self.gen_img_frames(X, frame_width)
 		return all_X_frames, y
 
-
-
-
-
-
-
-
 if __name__ == "__main__":
 	src = ImageDataSource()
 	frames_and_labels = src.get_img_data_frames_and_labels()
