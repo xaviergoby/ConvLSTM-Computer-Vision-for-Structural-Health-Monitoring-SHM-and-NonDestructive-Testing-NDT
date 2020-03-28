@@ -58,14 +58,11 @@ X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=test_split, sh
 # 1660 Ti GPU Memory compatible batch sizes: 1, 2
 history = conv_lstm_model.fit(X_train, y_train, epochs=10, verbose=1, batch_size=2, validation_split=0.05)
 
-<<<<<<< HEAD:src/main.py
 # from keras.utils import plot_model
 # plot_model(conv_lstm_model, to_file='conv_lstm_model.png', show_shapes=True, expand_nested=True, show_layer_names=True)
 
 # Performance visualization plotting
-=======
 # Visualising the performance by plotting the training history
->>>>>>> 9784e2950bfbf6c08fa9f831548baa67f23a661e:main.py
 plt.plot(history.history['accuracy'], 'bo')
 plt.plot(history.history['val_accuracy'])
 plt.title('conv_lstm_model accuracy')
@@ -86,9 +83,5 @@ plt.show()
 # the architecture of the network/model
 model_saving_funcs.save_model_arch_plot(conv_lstm_model, "conv_lstm_model")
 
-
-<<<<<<< HEAD:src/main.py
 # preds = conv_lstm_model.predict(X_val)
 # print(f"preds:\n{preds}")
-=======
->>>>>>> 9784e2950bfbf6c08fa9f831548baa67f23a661e:main.py
