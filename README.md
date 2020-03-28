@@ -5,6 +5,12 @@
 **Co-authors:** Ewald V., Goby X., Groves R.M. & Benedictus R.             
 **Labarotory:** TU Delft Aerospace NDT Lab
 
+## Usage Instruction
+
+In order to make use of this project all you need mainly be concerned with is the main.py
+Python script. In it you shall (hopefully) find yourself a more than sufficient amount of
+documentation in order to understand and be able to make use of it! 
+
 ## Dev Progress Log-Journal, Data Characteristics & Background Information
 
 ### Notes:
