@@ -1,13 +1,13 @@
 from keras.layers import TimeDistributed
 from keras.layers import Input
 from keras.models import Model
-from load_image_data import ImageDataSource
+from src.data_tools.image_data import load_image_data
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import settings
 from src.cnn_models import cnn_models_collection
 from src.lstm_models import lstm_models_collection
-from src.utils import model_saving
+from src.utils import model_saving_funcs
 
 
 # Frame shape dimensions for input tensor shapes
@@ -38,10 +38,11 @@ conv_lstm_model = Model(inputs=td_video_input_tensor, outputs=fc_lstm_model_outp
 # Compilation
 conv_lstm_model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer="adam")
 
+# Print a summary of your (compiled) models constituent layers, hyper-parameters, parameters etc...
 print(conv_lstm_model.summary())
 
 # Retrieve img frames and img class labels dataset
-src = ImageDataSource()
+src = load_image_data.ImageDataSource()
 frames_and_labels = src.get_img_data_frames_and_labels()
 frames = frames_and_labels[0]
 labels = frames_and_labels[1]
@@ -55,13 +56,9 @@ X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=test_split, sh
 # In keras, fit() is much similar to sklearn's fit method, where you pass array of features as x values and target as y values.
 # You pass your whole dataset at once in fit method. Also, use it if you can load whole data into your memory (small dataset).
 # 1660 Ti GPU Memory compatible batch sizes: 1, 2
-history = conv_lstm_model.fit(X_train, y_train, epochs=1, verbose=1, batch_size=2, validation_split=0.05)
+history = conv_lstm_model.fit(X_train, y_train, epochs=10, verbose=1, batch_size=2, validation_split=0.05)
 
-
-# from keras.utils import plot_model
-# plot_model(conv_lstm_model, to_file='conv_lstm_model.png', show_shapes=True, expand_nested=True, show_layer_names=True)
-
-# Performance visualization plotting
+# Visualising the performance by plotting the training history
 plt.plot(history.history['accuracy'], 'bo')
 plt.plot(history.history['val_accuracy'])
 plt.title('conv_lstm_model accuracy')
@@ -69,7 +66,7 @@ plt.ylabel('accuracy')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
-# summarize history for loss
+# Visualising the history of the loss score
 plt.plot(history.history['loss'], 'bo')
 plt.plot(history.history['val_loss'])
 plt.title('conv_lstm_model loss')
@@ -78,10 +75,8 @@ plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 
-model_saving.save_model_arch_plot(conv_lstm_model, "conv_lstm_model")
+# Convert the trained model into dot format, save it and visualise
+# the architecture of the network/model
+model_saving_funcs.save_model_arch_plot(conv_lstm_model, "conv_lstm_model")
 
-# eval_res = conv_lstm_model.evaluate(X_val, y_val)
-# print(f"eval_res:\n{eval_res}")
 
-# preds = conv_lstm_model.predict(X_val)
-# print(f"preds:\n{preds}")
