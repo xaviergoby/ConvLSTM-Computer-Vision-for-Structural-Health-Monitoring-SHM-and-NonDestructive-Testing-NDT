@@ -2,7 +2,6 @@ from keras.layers import TimeDistributed
 from keras.layers import Conv2D, MaxPooling2D, Flatten
 from keras.layers import Input, LSTM, Embedding, Dense
 from keras.models import Model, Sequential
-from load_image_data import ImageDataSource
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import settings

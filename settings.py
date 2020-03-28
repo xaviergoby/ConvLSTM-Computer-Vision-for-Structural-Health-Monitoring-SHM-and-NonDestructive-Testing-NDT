@@ -2,6 +2,9 @@ import os
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+RESULTS_DIR = os.path.join(ROOT_DIR, "results")
+
+
 DATA_DIR_NAME = "images"
 DATA_DIR_PATH = os.path.join(ROOT_DIR, r"data\{0}".format(DATA_DIR_NAME))
 TRAIN_DIR_PATH = os.path.join(DATA_DIR_PATH, "train")

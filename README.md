@@ -1,6 +1,19 @@
-# Log-Journal, Data Characteristics & Background Information
+# Sequential Modelling in Data-Driven Approach for Structural Health Monitoring by Recurrent Convolutional Neural Networks
 
-## Notes:
+**Conference:** 20th World Conference on Non-Destructive Testing    
+**Location & Date:** South Korea, Seoul - June 2020      
+**Co-authors:** Ewald V., Goby X., Groves R.M. & Benedictus R.             
+**Labarotory:** TU Delft Aerospace NDT Lab
+
+## Usage Instruction
+
+In order to make use of this project all you need mainly be concerned with is the main.py
+Python script. In it you shall (hopefully) find yourself a more than sufficient amount of
+documentation in order to understand and be able to make use of it! 
+
+## Dev Progress Log-Journal, Data Characteristics & Background Information
+
+### Notes:
 
 The CNN subsection/layers is/are used for performing feature on the
 input data.
@@ -25,7 +38,7 @@ be 3D and specify the following:
 - The number of features
 
 
-## Log-Journal:
+### Log-Journal:
 
 
 ###### December 14 Saturday 2019   
@@ -185,7 +198,7 @@ _____________________________________________________________________
 
 
 _____________________________________________________________________
-# Network Input Layer and Input Data Shapes Notes:
+## Network Input Layer and Input Data Shapes Notes:
 
 A Conv2D layer requires four dimensions, not three: (batch_size, width, height, channels)
 
@@ -208,7 +221,7 @@ The # of frames (AKA # of time_steps) specifies the number of frames (time_steps
 E.g. 5dim data shape: (sample, time, width, length, channel)
 
 
-# Key terms/topics/concepts:
+## Key terms/topics/concepts:
 
 PZT (Effect)
 
@@ -220,7 +233,7 @@ Guided wave SHM
 
 lamb wave shm signal processing with machine learning
 
-# Relevant research papers & posts:
+## Relevant research papers & posts:
 - RNN with Attention for Genre Classification: https://pdfs.semanticscholar.org/bff3/eaf5d8ebb6e613ae0146158b2b5346ee7323.pdf
 - Music Genre Recognition: http://deepsound.io/music_genre_recognition.html
 - Using CNNs and RNNs for Music Genre Recognition: https://towardsdatascience.com/using-cnns-and-rnns-for-music-genre-recognition-2435fb2ed6af
