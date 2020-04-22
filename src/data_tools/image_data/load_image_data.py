@@ -6,7 +6,7 @@ import settings
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 
-# img_path = "data/SPIE2019/All/test/Sample2.png
+# img_path = "data/SPIE2019/All/prototyping_data/Sample2.png
 # The factors of 4,100. Answer : 1,2,4,5,10,20,25,41,50,82,100,164,205,410,820,1025,2050,4100,
 
 class ImageDataSource:
@@ -19,7 +19,7 @@ class ImageDataSource:
 		self.test_dir_path = settings.TEST_DIR_PATH
 		self.ref_dir = self.test_dir_path
 		self.data_dir_paths_dict = {"train":self.train_dir_path, "validation":self.validation_dir_path,
-		                            "test":self.test_dir_path}
+		                            "prototyping_data":self.test_dir_path}
 		self.class_labels = [int(label) for label in os.listdir(self.test_dir_path)]
 
 	def get_test_image_dir_path_by_label(self, label):
@@ -56,7 +56,7 @@ class ImageDataSource:
 
 		return img_arrays_dict
 
-	def get_dataset(self, data_set_name="test"):
+	def get_dataset(self, data_set_name="prototyping_data"):
 		"""
 		:param data_set_name:
 		:return: X w/ shape (
@@ -107,12 +107,19 @@ class ImageDataSource:
 		frames_array = np.asarray(frames)
 		return frames_array
 
-	def get_img_data_frames_and_labels(self, frame_width=25, data_set_name="test"):
+	def get_img_data_frames_and_labels(self, frame_width=25, data_set_name="prototyping_data"):
 		dataset = self.get_dataset(data_set_name)
 		X = dataset[0]
 		y = dataset[1]
 		all_X_frames = self.gen_img_frames(X, frame_width)
 		return all_X_frames, y
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
 	src = ImageDataSource()

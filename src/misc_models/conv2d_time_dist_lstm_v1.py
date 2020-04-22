@@ -75,6 +75,8 @@ d3 = Dense(num_classes, activation="softmax")(do5)
 model = Model(inputs=input_tensor, outputs=d3)
 model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer="adam")
 
+
+
 img_data_src = ImageDataSource()
 img_dataset = img_data_src.get_dataset()
 X = img_dataset[0]
