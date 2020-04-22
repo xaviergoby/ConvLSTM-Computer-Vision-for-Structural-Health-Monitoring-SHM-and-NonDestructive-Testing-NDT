@@ -195,6 +195,33 @@ _____________________________________________________________________
 
     - Add custom functions for saving trained models either completely (arch + weights + optimizer state) or only
     partially (e.g. arch)
+  
+_____________________________________________________________________
+###### March 6th Monday 2020
+    
+    Notes:
+    
+    - Incorporated more LSTM, CNN and CONVLSTM models and also did some refactoring
+    
+    - Implemented the ability to plot a visualisation of the architecture of a network/model. 
+    
+    - Finally managed to "get data into and back out from the CONVLSTM model/network" succesfully and so without
+    experiencing any issues with tensor data representations, i.e. shape
+    
+_____________________________________________________________________
+###### March 27th Monday 2020
+
+    Notes:
+    
+    - Seems like having selected the Mark Directory as | Sources Route option for some of the 
+    modules was nothing more than duck-tape quick fixes of importation issues which I would run into during development. 
+    The project has now been structured in the most appropriate/conventional Python way and it should now fix all the importation 
+    related issues which Vincent was experiencing. 
+    
+    -  Tidied up this README.md file
+    
+    
+
 
 
 _____________________________________________________________________
