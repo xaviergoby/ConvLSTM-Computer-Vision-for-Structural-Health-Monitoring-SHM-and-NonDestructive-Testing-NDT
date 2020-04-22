@@ -111,4 +111,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-settings.py
+
+# data
+data
