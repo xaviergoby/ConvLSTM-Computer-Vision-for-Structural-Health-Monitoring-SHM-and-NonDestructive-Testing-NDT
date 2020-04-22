@@ -114,3 +114,6 @@ venv.bak/
 
 # data
 data/
+
+images/
+time_series/
