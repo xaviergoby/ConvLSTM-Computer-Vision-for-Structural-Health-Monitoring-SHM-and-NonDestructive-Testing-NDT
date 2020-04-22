@@ -9,7 +9,7 @@ from src.cnn_models import cnn_models_collection
 from src.lstm_models import lstm_models_collection
 from src.utils import model_saving_funcs
 
-#Main.py is built into modular functions. Call parameters from /settings.py
+
 # Frame shape dimensions for input tensor shapes
 height = settings.FRAME_HEIGHT
 width = settings.FRAME_WIDTH
@@ -19,7 +19,7 @@ num_classes = settings.NUM_CLASSES
 batches_num = settings.NUM_IMGS  # number of batches
 frames_num = settings.NUM_FRAMES  # number of sequential samples
 
-# CNN 2D Seq Model, call parameters from /src/cnn_models/
+# CNN 2D Seq Model
 cnn_model_input_tensor_shape = settings.CNN_2D_INPUT_TENSOR_SHAPE
 cnn_model = cnn_models_collection.build_simple_cnn_feature_extractor_seq_model(cnn_model_input_tensor_shape)
 
@@ -28,7 +28,7 @@ td_video_input_tensor_shape = settings.TIME_DISTRIBUTED_MODEL_INPUT_TENSOR_SHAPE
 td_video_input_tensor = Input(shape=td_video_input_tensor_shape)
 td_model_output = TimeDistributed(cnn_model)(td_video_input_tensor)
 
-# LSTM Model, call from /src/lstm_models/
+# LSTM Model
 fc_lstm_model_output = lstm_models_collection.get_simple_single_layer_fc_lstm_func_api_model_output(td_model_output, num_classes)
 
 # In the functional API, given some input tensor(s) and output tensor(s), I can instantiate a Model
@@ -58,17 +58,13 @@ X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=test_split, sh
 # 1660 Ti GPU Memory compatible batch sizes: 1, 2
 history = conv_lstm_model.fit(X_train, y_train, epochs=10, verbose=1, batch_size=2, validation_split=0.05)
 
-# from keras.utils import plot_model
-# plot_model(conv_lstm_model, to_file='conv_lstm_model.png', show_shapes=True, expand_nested=True, show_layer_names=True)
-
-# Performance visualization plotting
 # Visualising the performance by plotting the training history
 plt.plot(history.history['accuracy'], 'bo')
 plt.plot(history.history['val_accuracy'])
 plt.title('conv_lstm_model accuracy')
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper left')
+plt.legend(['train', 'prototyping_data'], loc='upper left')
 plt.show()
 # Visualising the history of the loss score
 plt.plot(history.history['loss'], 'bo')
@@ -76,12 +72,11 @@ plt.plot(history.history['val_loss'])
 plt.title('conv_lstm_model loss')
 plt.ylabel('loss')
 plt.xlabel('epoch')
-plt.legend(['train', 'test'], loc='upper left')
+plt.legend(['train', 'prototyping_data'], loc='upper left')
 plt.show()
 
 # Convert the trained model into dot format, save it and visualise
 # the architecture of the network/model
 model_saving_funcs.save_model_arch_plot(conv_lstm_model, "conv_lstm_model")
 
-# preds = conv_lstm_model.predict(X_val)
-# print(f"preds:\n{preds}")
+
