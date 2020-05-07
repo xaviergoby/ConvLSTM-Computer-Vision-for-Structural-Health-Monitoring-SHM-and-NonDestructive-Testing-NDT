@@ -14,7 +14,6 @@ from src.utils import model_saving_funcs
 # import datetime
 # from src.utils import data_preprocessing
 
-
 data_dir_name = "scenario_1"
 train_dataset_dir_name = "training"
 val_dataset_dir_name = "validation"
@@ -22,7 +21,7 @@ test_dataset_dir_name = "test"
 img_data_src = image_data_handler.ImageDataHandler(data_dir_name)
 
 # Frame shape dimensions for input tensor shapes
-frame_width = 25
+frame_width = 512
 frame_height = 247
 channels = 3
 img_colour_format = "rgb"
@@ -35,7 +34,6 @@ og_test_images, og_test_labels = img_data_src.get_dataset_images_and_labels(test
 X_train, y_train = img_data_src.gen_labelled_frames(og_train_images, og_train_labels, frame_width)
 X_val, y_val = img_data_src.gen_labelled_frames(og_val_images, og_val_labels, frame_width)
 X_test, y_test = img_data_src.gen_labelled_frames(og_test_images, og_test_labels, frame_width)
-
 
 # Additional (shape) dimensions for input tensor shapes
 num_classes = img_data_src.num_class_labels
@@ -61,7 +59,10 @@ conv_lstm_model = Model(inputs=td_video_input_tensor, outputs=fc_lstm_model_outp
 # Compilation
 lr = 0.001
 adam_optimizer = keras.optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, amsgrad=False)
-conv_lstm_model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer=adam_optimizer)
+sgd_optimizer = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True)
+rms_optimizer = keras.optimizers.RMSprop(learning_rate=0.001, rho=0.9)
+
+conv_lstm_model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer=rms_optimizer)
 
 # Print a summary of your (compiled) models constituent layers, hyper-parameters, parameters etc...
 print(conv_lstm_model.summary())
@@ -70,7 +71,7 @@ print(conv_lstm_model.summary())
 # You pass your whole dataset at once in fit method. Also, use it if you can load whole data into your memory (small dataset).
 # 1660 Ti GPU Memory compatible batch sizes: 1, 2. 4
 bs = 4
-num_epochs = 100
+num_epochs = 500
 # history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=1, batch_size=bs, validation_split=0.05)
 history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=1, batch_size=bs, validation_data=(X_val, y_val))
 
@@ -96,8 +97,6 @@ plt.show()
 # Convert the trained model into dot format, save it and visualise
 # the architecture of the network/model
 model_saving_funcs.save_model_arch_plot(conv_lstm_model, "conv_lstm_model")
-
-
 
 # adam lr = 0.001
 # 96s 229ms/step - loss: 1.8829 - accuracy: 0.1905 - val_loss: 1.7930 - val_accuracy: 0.1667
