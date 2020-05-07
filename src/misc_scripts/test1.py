@@ -8,7 +8,7 @@ model = Sequential()
 
 # The length (number of times steps) of the time series sequences
 num_of_time_steps = 30
-# The number of features per time step e.g. x, y and z coordinates
+# The number of features per time step e.g. x, y_train and z coordinates
 num_of_features_per_time_step = 3
 
 model.add(Conv1D(1, kernel_size=5, input_shape = (num_of_time_steps, num_of_features_per_time_step), strides=1, activation="relu"))
@@ -138,7 +138,7 @@ plot_model(model, to_file='conv_lstm_model.png')
 
 
 # from keras.layers import Input, Conv2D
-# input_tensor = Input((64, 64, 3))  # 64x64 pixels, 3 channels
+# input_tensor = Input((64, 64, 3))  # 64x64 pixels, 3 frame_channels
 # conv_layer = Conv2D(filters=17, kernel_size=(3, 3))
 # output_tensor = conv_layer(input_tensor)
 #

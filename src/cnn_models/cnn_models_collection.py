@@ -9,13 +9,15 @@ from keras.models import Model
 
 def build_simple_cnn_feature_extractor_seq_model(input_shape):
 	"""
-	:param input_shape: e.g. (height, width, channels)
+	:param input_shape: e.g. (frame_height, frame_width, frame_channels)
 	:return:
 	"""
 	model = Sequential()
-	model.add(Conv2D(64, (3, 3), activation='relu', padding='same', input_shape=input_shape))
+	# model.add(Conv2D(64, (3, 3), activation='relu', padding='same', input_shape=input_shape))
+	model.add(Conv2D(8, (3, 3), activation='relu', padding='same', input_shape=input_shape))
 	model.add(MaxPooling2D((2, 2)))
-	model.add(Conv2D(128, (3, 3), activation='relu', padding='same'))
+	# model.add(Conv2D(128, (3, 3), activation='relu', padding='same'))
+	model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))
 	model.add(MaxPooling2D((2, 2)))
 	model.add(Flatten())
 	return model

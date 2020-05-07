@@ -220,6 +220,65 @@ _____________________________________________________________________
     
     -  Tidied up this README.md file
     
+_____________________________________________________________________
+###### April 22nd Monday 2020
+
+    Notes:
+    
+    - Spent ages going about fixing the GitHub repository by reverting back to what it was 25 days ago after backing
+    up the current version of the repo. Then used this backup to readd and update the fixed GitHub repo with all missing
+    files and outdated scripts.
+    
+    - Manage to get the data dir to be ignored so as to stop any data being commieted and pushed.
+    
+    - Added the functionallity to automate the process of determining the width to which the origininal 4101x247 (w x h)
+    images should be adjusted to for a given frame width. Essentially this function is meant for finding the number closest 
+    to n and divisible by m. Within the context of data postprocessing of images, this function is used for determining 
+    the maximum acceptable width of an image(es) (img_width) for creating frames for the image(es) of constant width (frame_width).
+
+_____________________________________________________________________
+###### April 25nd Saturday 2020
+
+    Notes:
+    
+    - NOTE that X.shape should be/return:
+        (batch size, # of frames, height, width, channels)  where # of frames <==> # of time steps
+        So for a training dataset with:
+            og height, og width = 4101, 247
+            img colour channels = 1
+            num_class_labels = 6
+            images per class label = 70
+            total number of images = 70 * 6 = 420 = batch_size
+            frame_width = 25 & adjusted_img_width = 4100 ==> # of frames per image = 4100 / 25 = 164 <==> # of time steps
+        X.shape should return/be: (420, 164, 247, 4100, 1)
+      & y.shape should be/return:
+        (batch size, # of class labels) so for e.g. above, y.shape should be/return: (420, 6)
+        
+        
+_____________________________________________________________________
+###### April 29nd Wednesday 2020      
+
+    Notes:
+    
+    - keras.layers.Conv2D(filters, kernel_size, strides=(1, 1), padding='valid', data_format=None, dilation_rate=(1, 1), activation=None,
+                            use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None,
+                             bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
+
+     where:
+     - data_format: A string, one of "channels_last" or "channels_first". The ordering of the dimensions in the inputs.
+      "channels_last" corresponds to inputs with shape (batch, height, width, channels) while **"channels_first"** corresponds
+      to inputs with shape **(batch, channels, height, width)**. It defaults to the image_data_format value found in your Keras
+      config file at ~/.keras/keras.json. If you never set it, then it will be "channels_last".
+      
+    - Input shape: 
+    For "channels_first" a 4D tensor with shape: (batch, channels, rows, cols) 
+    For **"channels_last"** a **4D tensor** with shape: **(batch, rows, cols, channels)** <=> **(batch size, height, width, channels)**
+
+    - Output shape: 
+    For "channels_first" a 4D tensor with shape: (batch, filters, new_rows, new_cols)
+    For **"channels_last"** a **4D tensor** with shape: 
+                            **(batch, new_rows, new_cols, filters)** <=> **(batch size, new height, new width, filters)**
+    rows and cols values might have changed due to padding.                             
     
 
 

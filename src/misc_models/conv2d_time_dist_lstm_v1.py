@@ -23,17 +23,17 @@ num_classes = 9
 	# cnn_model_input_tensor_shape = (frames_per_seq, 3, img_width, img_height)
 	# cnn_model_input_tensor_shape = (None, 3, img_width, img_height)
 	# cnn_model_input_tensor_shape = (3, img_width, img_height)
-	# cnn_model_input_tensor_shape = (channels, img_width, img_height, None)
-	# cnn_model_input_tensor_shape = (channels, img_width, img_height, 2)
-# 	cnn_model_input_tensor_shape = (channels, img_width, img_height)
+	# cnn_model_input_tensor_shape = (frame_channels, img_width, img_height, None)
+	# cnn_model_input_tensor_shape = (frame_channels, img_width, img_height, 2)
+# 	cnn_model_input_tensor_shape = (frame_channels, img_width, img_height)
 # else:
 	# (batch_size, image_height, image_width, n_channels)
 	# cnn_model_input_tensor_shape = (frames_per_seq, img_width, img_height, 3)
 	# cnn_model_input_tensor_shape = (None, img_width, img_height, 3)
 	# cnn_model_input_tensor_shape = (img_width, img_height, 3)
-	# cnn_model_input_tensor_shape = (None, img_width, img_height, channels)
-	# cnn_model_input_tensor_shape = (2, img_width, img_height, channels)
-	# cnn_model_input_tensor_shape = (img_width, img_height, channels)
+	# cnn_model_input_tensor_shape = (None, img_width, img_height, frame_channels)
+	# cnn_model_input_tensor_shape = (2, img_width, img_height, frame_channels)
+	# cnn_model_input_tensor_shape = (img_width, img_height, frame_channels)
 
 batches_num = 90    # number of batches
 frames_num = 164    # number of sequential samples
@@ -41,10 +41,10 @@ height = 247
 width = 25
 channels = 1
 input_tensor_shape = (frames_num, height, width, channels)
-# cnn_model_input_tensor_shape = (channels, img_width, img_height)
-# cnn_model_input_tensor_shape = (img_width, img_height, channels)
-# cnn_model_input_tensor_shape = (number_of_frames, img_width, img_height, channels)
-# cnn_model_input_tensor_shape = (img_width, img_height, channels)
+# cnn_model_input_tensor_shape = (frame_channels, img_width, img_height)
+# cnn_model_input_tensor_shape = (img_width, img_height, frame_channels)
+# cnn_model_input_tensor_shape = (number_of_frames, img_width, img_height, frame_channels)
+# cnn_model_input_tensor_shape = (img_width, img_height, frame_channels)
 input_tensor = Input(shape=input_tensor_shape)
 
 conv1 = TimeDistributed(Conv2D(16, (2, 2), activation="relu"))(input_tensor)
@@ -78,9 +78,9 @@ model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer="
 
 
 img_data_src = ImageDataSource()
-img_dataset = img_data_src.get_dataset()
+img_dataset = img_data_src.get_right_end_trimmed_imgs_dataset()
 X = img_dataset[0]
-# X = X.reshape((X.shape[0], 1, X.shape[1], X.shape[2], X.shape[-1]))
+# X_train = X_train.reshape((X_train.shape[0], 1, X_train.shape[1], X_train.shape[2], X_train.shape[-1]))
 y = img_dataset[1]
 y = y.reshape((y.shape[0], 1))
 # label_encoder = LabelEncoder()
@@ -96,8 +96,8 @@ batch_size = 1
 from sklearn.model_selection import train_test_split
 val_split = 0.2
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=val_split, stratify=y)
-# X = np.concatenate((X_train, X_val))
-# y = np.concatenate((y_train, y_val))
+# X_train = np.concatenate((X_train, X_val))
+# y_train = np.concatenate((y_train, y_val))
 
 train_steps_per_epoch = X_train.shape[0] // batch_size
 val_steps = X_val.shape[0] // batch_size

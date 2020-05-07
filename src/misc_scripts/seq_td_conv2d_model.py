@@ -18,11 +18,11 @@ frames_num = 164  # number of sequential samples
 height = 247
 width = 25
 channels = 1
-# input_tensor_shape = (frames_num, height, width, channels)
+# input_tensor_shape = (frames_num, frame_height, frame_width, frame_channels)
 
 def build_simple_cnn_feature_extractor_model(input_shape):
 	"""
-	:param input_shape: e.g. (height, width, channels)
+	:param input_shape: e.g. (frame_height, frame_width, frame_channels)
 	:return:
 	"""
 	cnn = Sequential()

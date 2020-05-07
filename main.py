@@ -1,7 +1,9 @@
 from keras.layers import TimeDistributed
 from keras.layers import Input
 from keras.models import Model
+from src.data_tools.image_data import load_image_data2
 from src.data_tools.image_data import load_image_data
+from src.data_tools.image_data import image_data_handler
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import settings
@@ -10,20 +12,28 @@ from src.lstm_models import lstm_models_collection
 from src.utils import model_saving_funcs
 
 
+data_dir_name = "scenario_1"
+img_data_handler = image_data_handler.ImageDataHandler(data_dir_name)
+
+
 # Frame shape dimensions for input tensor shapes
 height = settings.FRAME_HEIGHT
 width = settings.FRAME_WIDTH
 channels = settings.FRAME_CHANNELS
 # Additional (shape) dimensions for input tensor shapes
-num_classes = settings.NUM_CLASSES
-batches_num = settings.NUM_IMGS  # number of batches
-frames_num = settings.NUM_FRAMES  # number of sequential samples
+num_classes = settings.NUM_CLASSES # \\TODO change
+# num_classes = img_data_src.num_class_labels \\TODO Replace above line with this one
+batches_num = settings.NUM_IMGS  # number of batches \\TODO redundant
+frames_num = settings.NUM_FRAMES  # number of sequential samples \\TODO redundant
 
 # CNN 2D Seq Model
+# 3D tensor shape which stores a single frame: (FRAME_HEIGHT, FRAME_WIDTH, FRAME_CHANNELS)
 cnn_model_input_tensor_shape = settings.CNN_2D_INPUT_TENSOR_SHAPE
+# cnn_model_input_tensor_shape =
 cnn_model = cnn_models_collection.build_simple_cnn_feature_extractor_seq_model(cnn_model_input_tensor_shape)
 
 # TimeDistributed Func API Model
+# # 4D tensor shape storing a sequence of frames: (NUM_FRAMES, FRAME_HEIGHT, FRAME_WIDTH, FRAME_CHANNELS)
 td_video_input_tensor_shape = settings.TIME_DISTRIBUTED_MODEL_INPUT_TENSOR_SHAPE
 td_video_input_tensor = Input(shape=td_video_input_tensor_shape)
 td_model_output = TimeDistributed(cnn_model)(td_video_input_tensor)
@@ -53,7 +63,7 @@ y = labels
 test_split = settings.TEST_DATASET_FRACTION
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=test_split, shuffle=True)
 
-# In keras, fit() is much similar to sklearn's fit method, where you pass array of features as x values and target as y values.
+# In keras, fit() is much similar to sklearn's fit method, where you pass array of features as x values and target as y_train values.
 # You pass your whole dataset at once in fit method. Also, use it if you can load whole data into your memory (small dataset).
 # 1660 Ti GPU Memory compatible batch sizes: 1, 2
 history = conv_lstm_model.fit(X_train, y_train, epochs=10, verbose=1, batch_size=2, validation_split=0.05)

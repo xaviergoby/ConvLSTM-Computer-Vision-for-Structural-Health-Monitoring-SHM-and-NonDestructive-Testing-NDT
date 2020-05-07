@@ -52,7 +52,7 @@ def generate_examples(size, n_patterns):
 		frames, right = build_frames(size)
 		X.append(frames)
 		y.append(right)
-	# resize as [samples, timesteps, width, height, channels]
+	# resize as [samples, timesteps, frame_width, frame_height, frame_channels]
 	X = array(X).reshape(n_patterns, size, size, size, 1)
 	y = array(y).reshape(n_patterns, 1)
 	return X, y
@@ -74,19 +74,19 @@ size = 50
 res = generate_examples(50, 5000)
 X = res[0]
 y = res[1]
-# X, y = generate_examples(size, 5000)
+# X_train, y_train = generate_examples(size, 5000)
 print(X.shape)
 print(y.shape)
-# conv_lstm_model.fit(X, y, batch_size=32, epochs=1)
+# conv_lstm_model.fit(X_train, y_train, batch_size=32, epochs=1)
 
 # evaluate conv_lstm_model
-# X, y = generate_examples(size, 100)
-# loss, acc = conv_lstm_model.evaluate(X, y, verbose=0)
+# X_train, y_train = generate_examples(size, 100)
+# loss, acc = conv_lstm_model.evaluate(X_train, y_train, verbose=0)
 # print('loss: %f, acc: %f' % (loss, acc*100))
 
 # prediction on new data
-# X, y = generate_examples(size, 1)
-# yhat = conv_lstm_model.predict_classes(X, verbose=0)
-# expected = "Right" if y[0]==1 else "Left"
+# X_train, y_train = generate_examples(size, 1)
+# yhat = conv_lstm_model.predict_classes(X_train, verbose=0)
+# expected = "Right" if y_train[0]==1 else "Left"
 # predicted = "Right" if yhat[0]==1 else "Left"
 # print('Expected: %s, Predicted: %s' % (expected, predicted))

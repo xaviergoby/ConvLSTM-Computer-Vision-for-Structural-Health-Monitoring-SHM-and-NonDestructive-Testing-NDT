@@ -135,7 +135,7 @@ plt.show()
 book = xlwt.Workbook(encoding="utf-8")
 sheet1 = book.add_sheet("Sheet 1")
 sheet1.write(0, 0,
-             "Test data - [X]")  # In [x] fill the aim of this test - a different activation function, added layers, different layer size, etc.
+             "Test data - [X_train]")  # In [x] fill the aim of this test - a different activation function, added layers, different layer size, etc.
 sheet1.write(1, 0, "Batch size")
 sheet1.write(1, 1, batch_size)
 sheet1.write(2, 0, "Epochs")
@@ -170,4 +170,4 @@ for n in history.history['val_loss']:
 	sheet1.write(l, 3, n)
 
 book.save(
-	"setting4Cls1[X]xls")  # Do not run with the same book.save name twice, it will replace the first sheet without prompt
+	"setting4Cls1[X_train]xls")  # Do not run with the same book.save name twice, it will replace the first sheet without prompt

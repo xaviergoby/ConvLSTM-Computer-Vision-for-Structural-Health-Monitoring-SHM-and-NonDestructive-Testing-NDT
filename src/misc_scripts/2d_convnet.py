@@ -20,12 +20,12 @@ img_height = 247
 
 
 if K.image_data_format() == 'channels_first':
-	# (channels, rows, cols) so: rows = conv_dim1 & cols = conv_dim2
-	# (channels, conv_dim1, conv_dim2, conv_dim3)
+	# (frame_channels, rows, cols) so: rows = conv_dim1 & cols = conv_dim2
+	# (frame_channels, conv_dim1, conv_dim2, conv_dim3)
 	input_shape = (1, img_width, img_height, frames_per_seq)
 else:
-	# (rows, cols, channels)
-	# (conv_dim1, conv_dim2, conv_dim3, channels)
+	# (rows, cols, frame_channels)
+	# (conv_dim1, conv_dim2, conv_dim3, frame_channels)
 	input_shape = (frames_per_seq, img_width, img_height, 1)
 
 seq_of_frames = Input(shape=input_shape)
@@ -45,6 +45,6 @@ from keras.utils import plot_model
 plot_model(model, to_file='conv_lstm_model.png')
 
 
-# X = array(X).reshape(n_patterns, size, size, size, 1)
+# X_train = array(X_train).reshape(n_patterns, size, size, size, 1)
 
-# conv_lstm_model.fit(X, y, batch_size=32, epochs=1)
+# conv_lstm_model.fit(X_train, y_train, batch_size=32, epochs=1)

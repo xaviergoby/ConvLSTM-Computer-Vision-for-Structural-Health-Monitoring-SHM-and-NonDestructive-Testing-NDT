@@ -59,7 +59,7 @@ class ImageDataSource:
 	def get_dataset(self, data_set_name="prototyping_data"):
 		"""
 		:param data_set_name:
-		:return: X w/ shape (
+		:return: X_train w/ shape (
 		"""
 		data_set_path = self.data_dir_paths_dict[data_set_name.lower()]
 		X = []
@@ -90,7 +90,7 @@ class ImageDataSource:
 		"""
 		:param X:
 		:param frame_width:
-		:return: an array with shape, i.e. (90, 164, 247, 25, 1) where (samples #, frames #, height, width, channels)
+		:return: an array with shape, i.e. (90, 164, 247, 25, 1) where (samples #, frames #, frame_height, frame_width, frame_channels)
 		"""
 		# e.g. frame_width = 1367 yields 3 frames!
 		frames_cnt = int(X.shape[2]/frame_width)

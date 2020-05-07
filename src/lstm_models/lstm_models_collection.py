@@ -13,11 +13,14 @@ from keras.layers import Dropout, Flatten, Dense, LeakyReLU
 
 def get_simple_single_layer_fc_lstm_func_api_model_output(model_input, num_classes):
 	# LSTM
-	lstm = LSTM(128, return_sequences=False, activation='tanh')(model_input)
+	# lstm = LSTM(128, return_sequences=False, activation='tanh')(model_input)
+	lstm = LSTM(32, return_sequences=False, activation="relu")(model_input)
 	# MLP
-	d1 = Dense(128, activation="relu")(lstm)
+	# d1 = Dense(128, activation="relu")(lstm)
+	d1 = Dense(32, activation="relu")(lstm)
 	do4 = Dropout(0.5)(d1)
-	d2 = Dense(16, activation="relu")(do4)
+	# d2 = Dense(16, activation="relu")(do4)
+	d2 = Dense(8, activation="relu")(do4)
 	do5 = Dropout(0.5)(d2)
 	d3 = Dense(num_classes, activation="softmax")(do5)
 	return d3
