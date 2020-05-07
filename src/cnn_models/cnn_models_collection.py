@@ -10,7 +10,7 @@ def build_simple_cnn_feature_extractor_seq_model(input_shape):
     :return:
     """
     model = Sequential()
-    model.add(Conv2D(16, (3, 3), activation='relu', padding='same', input_shape=input_shape))
+    model.add(Conv2D(16, (3, 3), activation='relu', padding='same',kernel_initializer='random_uniform', input_shape=input_shape))
     model.add(MaxPooling2D((2, 2)))
     model.add(Dropout(0.25))
     model.add(Conv2D(32, (3, 3), activation='relu', padding='same'))

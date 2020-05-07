@@ -21,7 +21,7 @@ test_dataset_dir_name = "test"
 img_data_src = image_data_handler.ImageDataHandler(data_dir_name)
 
 # Frame shape dimensions for input tensor shapes
-frame_width = 512
+frame_width = 256
 frame_height = 247
 channels = 3
 img_colour_format = "rgb"
@@ -59,8 +59,8 @@ conv_lstm_model = Model(inputs=td_video_input_tensor, outputs=fc_lstm_model_outp
 # Compilation
 lr = 0.001
 adam_optimizer = keras.optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, amsgrad=False)
-sgd_optimizer = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True)
-rms_optimizer = keras.optimizers.RMSprop(learning_rate=0.001, rho=0.9)
+sgd_optimizer = keras.optimizers.SGD(learning_rate=lr, decay=1e-6, momentum=0.9, nesterov=True)
+rms_optimizer = keras.optimizers.RMSprop(learning_rate=lr, rho=0.9)
 
 conv_lstm_model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer=rms_optimizer)
 
@@ -70,8 +70,8 @@ print(conv_lstm_model.summary())
 # In keras, fit() is much similar to sklearn's fit method, where you pass array of features as x values and target as y_train values.
 # You pass your whole dataset at once in fit method. Also, use it if you can load whole data into your memory (small dataset).
 # 1660 Ti GPU Memory compatible batch sizes: 1, 2. 4
-bs = 4
-num_epochs = 500
+bs = 8
+num_epochs = 50
 # history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=1, batch_size=bs, validation_split=0.05)
 history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=1, batch_size=bs, validation_data=(X_val, y_val))
 
