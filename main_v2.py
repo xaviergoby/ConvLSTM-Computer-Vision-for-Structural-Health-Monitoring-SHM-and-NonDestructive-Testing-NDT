@@ -71,7 +71,7 @@ print(conv_lstm_model.summary())
 # You pass your whole dataset at once in fit method. Also, use it if you can load whole data into your memory (small dataset).
 # 1660 Ti GPU Memory compatible batch sizes: 1, 2. 4
 bs = 8
-num_epochs = 50
+num_epochs = 100
 # history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=1, batch_size=bs, validation_split=0.05)
 history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=1, batch_size=bs, validation_data=(X_val, y_val))
 
