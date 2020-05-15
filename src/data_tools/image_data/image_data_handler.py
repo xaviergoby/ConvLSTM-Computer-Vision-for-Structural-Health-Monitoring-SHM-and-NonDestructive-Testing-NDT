@@ -6,7 +6,6 @@ from sklearn.preprocessing import OneHotEncoder
 from src.utils import file_manipulation_tools
 from src.utils import data_preprocessing
 
-
 class ImageDataHandler:
 	
 	def __init__(self, dir_name):
@@ -29,8 +28,6 @@ class ImageDataHandler:
 		self.tot_num_training_images = self.num_class_labels * self.num_training_images_per_label
 		self.tot_num_validation_images = self.num_class_labels * self.num_validation_images_per_label
 		self.tot_num_test_images = self.num_class_labels * self.num_test_images_per_label
-
-
 	
 	def get_dataset_file_names_by_label(self, label, dataset_name):
 		given_label_dataset_img_file_names = os.listdir(os.path.join(self.data_subset_paths_dict[dataset_name], str(label)))
@@ -68,7 +65,7 @@ class ImageDataHandler:
 		y = onehot_encoder.fit_transform(y)
 		return y
 	
-	def get_dataset_images_and_labels(self, dataset, mode="gray_scale"):
+	def get_dataset_images_and_labels(self, dataset, mode="rgb"):
 		"""
 		:param dataset: e.g. "training"
 		:param mode: Is "gray_scale" (for frame_channels=0) by def. mode="rgb" loads images
@@ -87,9 +84,9 @@ class ImageDataHandler:
 				else:
 					img_array_brg = cv2.imread(img_i_path)
 					img_array = cv2.cvtColor(img_array_brg, cv2.COLOR_BGR2GRAY)
-					print(f"img_array.shape: {img_array.shape}")
+					#print(f"img_array.shape: {img_array.shape}")
 					img_array = np.expand_dims(img_array, axis=-1)
-					print(f"img_array.shape: {img_array.shape}")
+					#print(f"img_array.shape: {img_array.shape}")
 				X_list.append(img_array)
 				y_list.append(class_label)
 		X_array = np.asarray(X_list)
@@ -143,10 +140,7 @@ class ImageDataHandler:
 		y = dataset[1]
 		all_X_frames = self.gen_img_frames(X, frame_width)
 		return all_X_frames, y
-
-
-
-
+"""
 if __name__ == "__main__":
 	from src.utils import image_data_viz
 	from src.utils import data_preprocessing
@@ -159,8 +153,8 @@ if __name__ == "__main__":
 	print(f"src.num_training_images: {src.num_training_images_per_label}")
 	print(f"src.num_validation_images: {src.num_validation_images_per_label}")
 	print(f"src.num_test_images: {src.num_test_images_per_label}")
-	img_width = 4101
-	frame_width = 25
+	img_width = 4200
+	frame_width = 128
 	max_img_width = data_preprocessing.get_compatible_img_and_frame_widths(img_width, frame_width)
 	channels_rgb = "rgb"
 	channels_gray = "gray_scale"
@@ -172,5 +166,4 @@ if __name__ == "__main__":
 	print(f"labels[0].shape: {labels[0].shape}")
 	print(f"len(frames[0]): {len(frames[0])}")
 	print(f"len(labels[0]): {len(labels[0])}")
-
-	
+"""

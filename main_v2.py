@@ -1,30 +1,32 @@
+import os
+#os.environ["CUDA_VISIBLE_DEVICES"] = "-1"    
+os.environ["PATH"] += os.pathsep + 'F:/WinPython64/python-3.7.7.amd64/Lib/graphviz-2.38/bin/'
 import keras
 from keras.layers import TimeDistributed
 from keras.layers import Input
 from keras.models import Model
-# from src.data_tools.image_data import load_image_data2
-# from src.data_tools.image_data import load_image_data
 from src.data_tools.image_data import image_data_handler
-# from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
 # import settings
 from src.cnn_models import cnn_models_collection
 from src.lstm_models import lstm_models_collection
 from src.utils import model_saving_funcs
+import tensorflow as tf
+print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 # import datetime
 # from src.utils import data_preprocessing
 
-data_dir_name = "scenario_1"
+data_dir_name = "scene1_grey_sensor1"
 train_dataset_dir_name = "training"
 val_dataset_dir_name = "validation"
 test_dataset_dir_name = "test"
 img_data_src = image_data_handler.ImageDataHandler(data_dir_name)
 
 # Frame shape dimensions for input tensor shapes
-frame_width = 256
-frame_height = 247
-channels = 3
-img_colour_format = "rgb"
+frame_width = 1024
+frame_height = 193
+channels = 1
+img_colour_format = "gray_scale"
 
 # Retrieve original/raw images & class labels of training, validation and test datasets
 og_train_images, og_train_labels = img_data_src.get_dataset_images_and_labels(train_dataset_dir_name, img_colour_format)
@@ -65,14 +67,12 @@ rms_optimizer = keras.optimizers.RMSprop(learning_rate=lr, rho=0.9)
 conv_lstm_model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer=rms_optimizer)
 
 # Print a summary of your (compiled) models constituent layers, hyper-parameters, parameters etc...
-print(conv_lstm_model.summary())
 
 # In keras, fit() is much similar to sklearn's fit method, where you pass array of features as x values and target as y_train values.
 # You pass your whole dataset at once in fit method. Also, use it if you can load whole data into your memory (small dataset).
-# 1660 Ti GPU Memory compatible batch sizes: 1, 2, 4
-bs = 16
-num_epochs = 50
-# history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=1, batch_size=bs, validation_split=0.05)
+# 1660 Ti GPU Memory compatible batch sizes: 1, 2, 4, 8, 16, etc
+bs = 512
+num_epochs = 500
 history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=1, batch_size=bs, validation_data=(X_val, y_val))
 
 # Visualising the performance by plotting the training history
@@ -87,7 +87,7 @@ ax1.plot(history.history['val_accuracy'], color=color1, linestyle='dashed')
 ax1.legend(['train_ACC', 'val_ACC'], loc='center right',fontsize=16,bbox_to_anchor=(0.4, 1.1),ncol = 2)
 ax1.tick_params(axis='x', labelsize = 16)
 ax1.tick_params(axis='y', labelcolor=color1, labelsize = 16)
-ax1.set_ylim([0, 1])
+ax1.set_ylim([0, 1.05])
 
 ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 ax2.set_ylabel('Loss', color=color2, size=24)
@@ -99,6 +99,7 @@ ax2.set_ylim([0, 3])
 
 fig.tight_layout()  # otherwise the right y-label is slightly clipped
 plt.show()
+print(conv_lstm_model.summary())
 
 # Convert the trained model into dot format, save it and visualise
 # the architecture of the network/model
