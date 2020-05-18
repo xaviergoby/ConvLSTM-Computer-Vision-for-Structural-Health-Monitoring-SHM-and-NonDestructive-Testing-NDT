@@ -20,7 +20,7 @@ def get_compatible_img_and_frame_widths(img_width, frame_width):
 	return n2
 
 
-if __name__ == "__main__":
-	img_width = 4101;
-	frame_width = 25
-	print(get_compatible_img_and_frame_widths(img_width, frame_width))
+#if __name__ == "__main__":
+	#img_width = 4101;
+	#frame_width = 25
+	#print(get_compatible_img_and_frame_widths(img_width, frame_width))
