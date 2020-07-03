@@ -1,5 +1,5 @@
 from keras.models import Sequential
-from keras.layers import LeakyReLU, Dropout, Conv2D, MaxPooling2D, Flatten
+from keras.layers import LeakyReLU, Dropout, Conv2D, MaxPooling2D, Flatten, GlobalAveragePooling2D
 
 x_filter = 3
 y_filter = 3
@@ -25,7 +25,7 @@ def build_simple_cnn_feature_extractor_seq_model(input_shape):
     model.add(Dropout(do_rate))
     model.add(Conv2D(128, (x_filter, y_filter), strides = (stride, stride), activation='relu', padding='same'))
     model.add(MaxPooling2D((x_pool, y_pool), padding='same'))
-    model.add(Dropout(do_rate))
+    model.add(Dropout(do_rate))   
     model.add(Conv2D(64, (x_filter, y_filter), strides = (stride, stride), activation='relu', padding='same'))
     model.add(MaxPooling2D((x_pool, y_pool), padding='same'))
     model.add(Dropout(do_rate))
@@ -35,5 +35,6 @@ def build_simple_cnn_feature_extractor_seq_model(input_shape):
     model.add(Conv2D(16, (x_filter, y_filter), strides = (stride, stride), activation='relu', padding='same'))
     model.add(MaxPooling2D((x_pool, y_pool), padding='same'))
     model.add(Dropout(do_rate))
-    model.add(Flatten())
+    #model.add(Flatten())
+    model.add(GlobalAveragePooling2D())
     return model

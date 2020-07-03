@@ -13,6 +13,10 @@ Created on Sat May 16 13:45:50 2020
 from main_v2 import mainscript
 import numpy as np
 
+# In keras, fit() is much similar to sklearn's fit method, where you pass array of features as x values and target as y_train values.
+# You pass your whole dataset at once in fit method. Also, use it if you can load whole data into your memory (small dataset).
+# 1660 Ti GPU Memory compatible batch sizes bs = 1, 2, 4, 8, 16, etc
+        
 bs = 16
 
 frame_width = np.array([128, 257, 512, 1024])
@@ -25,7 +29,7 @@ num_epochs = 500
 for ddr in data_dir_name:
     for fw in frame_width:
         mainscript.training(ddr, fw, frame_height, channels, img_colour_format, bs, num_epochs)
-        
+
 frame_width = np.array([128, 256, 512, 1024])
 frame_height = 247
 channels = 3

@@ -1,26 +1,24 @@
-import tensorflow as tf
 import os
-#os.environ["CUDA_VISIBLE_DEVICES"] = "-1"    
-os.environ["PATH"] += os.pathsep + 'F:/WinPython64/python-3.7.7.amd64/Lib/graphviz-2.38/bin/'
+#os.environ["CUDA_VISIBLE_DEVICES"] = "-1" #Activate this line to use CPU only
+os.environ["PATH"] += os.pathsep + 'F:/WinPython64/python-3.7.7.amd64/Lib/graphviz-2.38/bin/' #Set path environment for graphviz library
+
+#Importing Keras, TF Backend, and functions from /src
+import tensorflow as tf
 import keras
 from keras.layers import TimeDistributed
 from keras.layers import Input
 from keras.models import Model
 from src.data_tools.image_data import image_data_handler
 from matplotlib import pyplot as plt
-# import settings
 from src.cnn_models import cnn_models_collection
 from src.lstm_models import lstm_models_collection
 from src.utils import model_saving_funcs
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
-# import datetime
-# from src.utils import data_preprocessing
 
 class mainscript:
     
     def training(data_dir_name, frame_width, frame_height, channels, img_colour_format, bs, num_epochs):
         
-        #data_dir_name = "scene3_grey_sensor1"
         train_dataset_dir_name = "training"
         val_dataset_dir_name = "validation"
         test_dataset_dir_name = "test"
@@ -40,7 +38,10 @@ class mainscript:
         batches_num = X_train.shape[0]
         num_frames = X_train.shape[1]
         
-        # CNN 2D Seq Model
+        # CNN 2D Seq Model, both frame_height and width does not describe the actual
+        # input size, but rather the amount of memory block that needs to be reserved in the RAM
+        # frame_height, frame_width = None will accept arbitrary input size and would consequently
+        # require "arbitrarily large" RAM. Therefore, be wise!
         cnn_model_input_tensor_shape = (frame_height, frame_width, channels)
         cnn_model = cnn_models_collection.build_simple_cnn_feature_extractor_seq_model(cnn_model_input_tensor_shape)
         
@@ -57,7 +58,7 @@ class mainscript:
         conv_lstm_model = Model(inputs=td_video_input_tensor, outputs=fc_lstm_model_output)
         print(conv_lstm_model.summary())
         
-        # Compilation
+        # Trainer compilation, for sequential modelling RMS Prop is recommended, but Adam and SGD can be used
         lr = 0.001
         adam_optimizer = keras.optimizers.Adam(learning_rate=lr, beta_1=0.9, beta_2=0.999, amsgrad=False)
         sgd_optimizer = keras.optimizers.SGD(learning_rate=lr, decay=1e-6, momentum=0.9, nesterov=True)
@@ -65,12 +66,7 @@ class mainscript:
         
         conv_lstm_model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer=rms_optimizer)
         
-        # Print a summary of your (compiled) models constituent layers, hyper-parameters, parameters etc...
-        
-        # In keras, fit() is much similar to sklearn's fit method, where you pass array of features as x values and target as y_train values.
-        # You pass your whole dataset at once in fit method. Also, use it if you can load whole data into your memory (small dataset).
-        # 1660 Ti GPU Memory compatible batch sizes: 1, 2, 4, 8, 16, etc
-        
+        # Train the model. To print the training history, set verbose to 1, otherwise 0 to hi
         history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=0, batch_size=bs, validation_data=(X_val, y_val))
         
         # Visualising the performance by plotting the training history
