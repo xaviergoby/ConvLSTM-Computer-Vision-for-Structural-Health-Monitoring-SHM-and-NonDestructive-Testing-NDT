@@ -2,7 +2,7 @@
 def get_compatible_img_and_frame_widths(img_width, frame_width):
 	"""
 	This function is meant for finding the number closest to n and divisible by m. Within the context
-	of data postprocessing of images, this function is used for determining the maximum acceptable frame_width
+	of data postprocessing of image_datasets, this function is used for determining the maximum acceptable frame_width
 	of an image(es) (img_width) for creating frames for the image(es) of constant frame_width (frame_width).
 	gcd: greatest common divisor
 	:param img_width: pixel frame_width (AKA milliseconds) of an image

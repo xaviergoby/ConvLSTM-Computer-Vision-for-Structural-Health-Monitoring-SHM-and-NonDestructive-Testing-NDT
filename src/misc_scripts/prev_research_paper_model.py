@@ -16,7 +16,7 @@ from numpy.random import seed
 
 seed(1)  # Fixing random seed for reproducibility
 
-# dimensions of our images.
+# dimensions of our image_datasets.
 img_width, img_height = 100, 100
 
 # Relative directory paths
@@ -74,15 +74,15 @@ model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
-# Here I am first rescaling all my images for training. Then performing a bunch of transformations
-# to my images for training <- Data Augmentation
+# Here I am first rescaling all my image_datasets for training. Then performing a bunch of transformations
+# to my image_datasets for training <- Data Augmentation
 train_datagen = ImageDataGenerator(
 	# horizontal_flip=True,
 	rescale=1. / 255,
 	shear_range=0.2,
 	zoom_range=0.2)
 
-# Rescaling my images to be used for voldiation. Note that I should NOT augmnet my validaiton images!
+# Rescaling my image_datasets to be used for voldiation. Note that I should NOT augmnet my validaiton image_datasets!
 test_datagen = ImageDataGenerator(rescale=1. / 255)
 
 train_generator = train_datagen.flow_from_directory(

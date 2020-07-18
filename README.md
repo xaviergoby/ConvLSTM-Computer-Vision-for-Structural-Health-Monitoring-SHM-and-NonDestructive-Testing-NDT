@@ -278,7 +278,18 @@ _____________________________________________________________________
     For "channels_first" a 4D tensor with shape: (batch, filters, new_rows, new_cols)
     For **"channels_last"** a **4D tensor** with shape: 
                             **(batch, new_rows, new_cols, filters)** <=> **(batch size, new height, new width, filters)**
-    rows and cols values might have changed due to padding.                             
+    rows and cols values might have changed due to padding.
+    
+
+
+#### <u>Abreviations & Acronymcs Employed</u> 
+
+-   cls: class
+-   ohe: one hot encoded
+-   num: number
+-   dir: directory
+-   val: validation
+-   tot: total                                
     
 
 

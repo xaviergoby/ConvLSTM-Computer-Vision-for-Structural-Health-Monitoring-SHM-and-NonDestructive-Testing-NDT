@@ -6,12 +6,12 @@ import keras
 from keras.layers import TimeDistributed
 from keras.layers import Input
 from keras.models import Model
-from src.data_tools.image_data import image_data_handler
-from matplotlib import pyplot as plt
-# import settings
+from src.data_handling_tools.image_data_tools import image_data_handler
+import matplotlib.pyplot as plt
 from src.cnn_models import cnn_models_collection
 from src.lstm_models import lstm_models_collection
 from src.utils import model_saving_funcs
+from src.utils import data_preprocessing
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 # import datetime
 # from src.utils import data_preprocessing
