@@ -23,7 +23,7 @@ num_labels = len(np.unique(y_train))
 y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
 
-# reshape and normalize input image_datasets
+# reshape and normalize input images
 image_size = x_train.shape[1]
 x_train = np.reshape(x_train,[-1, image_size, image_size, 1])
 x_test = np.reshape(x_test,[-1, image_size, image_size, 1])
@@ -66,7 +66,7 @@ model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
-# train the model with input image_datasets and labels
+# train the model with input images and labels
 model.fit(x_train,
           y_train,
           validation_data=(x_test, y_test),

@@ -15,7 +15,7 @@ img_width = 400
 img_height = 247
 
 
-# func to partition large image_datasets into multiple smaller) frames which collectively constitute 1 sequence
+# func to partition large images into multiple smaller) frames which collectively constitute 1 sequence
 # func to
 
 

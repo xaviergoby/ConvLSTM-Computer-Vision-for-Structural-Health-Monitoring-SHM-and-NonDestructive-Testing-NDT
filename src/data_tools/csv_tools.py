@@ -3,8 +3,8 @@ import csv
 import os
 
 
-# C:\Users\Xavier\LSTMforSHM\data\time_series_datasets\csv_data_test_file.csv
-# csv_file_path = r"C:\Users\Xavier\LSTMforSHM\data\time_series_datasets\csv_data_test_file.csv"
+# C:\Users\Xavier\LSTMforSHM\data\csv_data\csv_data_test_file.csv
+# csv_file_path = r"C:\Users\Xavier\LSTMforSHM\data\csv_data\csv_data_test_file.csv"
 csv_file_path = r"C:\Users\Xavier\LSTMforSHM\data\csv_data\csv_data_test_file123.csv"
 
 
