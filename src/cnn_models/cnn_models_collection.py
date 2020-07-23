@@ -6,7 +6,7 @@ y_filter = 3
 stride = 1
 x_pool = 2
 y_pool = 2
-do_rate = 0.50
+do_rate = 0.25
 
 def build_simple_cnn_feature_extractor_seq_model(input_shape):
     """
