@@ -68,7 +68,7 @@ class ImageDataSource:
 		"""
 		:param max_img_width: the max allowable frame_width of each img, should obv be less than or = to  the original frame_width of an image(es).
 		Is settings.MAX_VALID_IMG_WIDTH (=4100) by def.
-		:param dataset_name: name of the subset of images data, i.e. "training", "validation" or "test". Is "test" by def
+		:param dataset_name: name of the subset of image_datasets data, i.e. "training", "validation" or "test". Is "test" by def
 		:return:
 		"""
 		print(f"dataset_name: {dataset_name}")
