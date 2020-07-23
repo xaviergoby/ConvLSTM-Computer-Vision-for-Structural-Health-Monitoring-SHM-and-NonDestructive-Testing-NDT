@@ -21,13 +21,13 @@ Architecture Test Plan (3-4 days per architecture):
 
 (x) CNN-16-128-16-GRUx2-do0.25-Dense (**: Run 3 Times to ensure that script run consistently, other tests run only once)
 (x) CNN-16-128-16-GRUx2-do0.25-GlobalPool
-( ) CNN-16-128-16-GRUx4-do0.25-Dense
-(-) CNN-16-128-16-GRUx4-do0.25-GlobalPool
+(x) CNN-16-128-16-GRUx4-do0.25-Dense
+(x) CNN-16-128-16-GRUx4-do0.25-GlobalPool
 
-( ) CNN-16-128-16-GRUx2-do0.50-Dense
-( ) CNN-16-128-16-GRUx2-do0.50-GlobalPool
-( ) CNN-16-128-16-GRUx4-do0.50-Dense
-( ) CNN-16-128-16-GRUx4-do0.50-GlobalPool
+(x) CNN-16-128-16-GRUx2-do0.50-Dense
+(-) CNN-16-128-16-GRUx2-do0.50-GlobalPool
+(x) CNN-16-128-16-GRUx4-do0.50-Dense
+(x) CNN-16-128-16-GRUx4-do0.50-GlobalPool
 
 (x) CNN-16-128-16-LSTMx2-do0.25-Dense
 (x) CNN-16-128-16-LSTMx2-do0.25-GlobalPool
