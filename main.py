@@ -1,9 +1,9 @@
 from keras.layers import TimeDistributed
 from keras.layers import Input
 from keras.models import Model
-from src.data_tools.image_data import load_image_data2
-from src.data_tools.image_data import load_image_data
-from src.data_tools.image_data import image_data_handler
+from src.data_handling_tools.image_data_tools import load_image_data2
+from src.data_handling_tools.image_data_tools import load_image_data
+from src.data_handling_tools.image_data_tools import image_data_handler
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import settings

@@ -8,11 +8,14 @@ import keras
 from keras.layers import TimeDistributed
 from keras.layers import Input
 from keras.models import Model
-from src.data_tools.image_data import image_data_handler
+#from src.data_tools.image_data import image_data_handler
 from matplotlib import pyplot as plt
+from src.data_handling_tools.image_data_tools import image_data_handler
+import matplotlib.pyplot as plt
 from src.cnn_models import cnn_models_collection
 from src.lstm_models import lstm_models_collection
 from src.utils import model_saving_funcs
+from src.utils import data_preprocessing
 print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
 class mainscript:
@@ -29,9 +32,9 @@ class mainscript:
         og_val_images, og_val_labels = img_data_src.get_dataset_images_and_labels(val_dataset_dir_name, img_colour_format)
         og_test_images, og_test_labels = img_data_src.get_dataset_images_and_labels(test_dataset_dir_name, img_colour_format)
         # Get/generate modified/altered/preprocessed img frames and class labels of training, validation and test datasets
-        X_train, y_train = img_data_src.gen_labelled_frames(og_train_images, og_train_labels, frame_width)
-        X_val, y_val = img_data_src.gen_labelled_frames(og_val_images, og_val_labels, frame_width)
-        X_test, y_test = img_data_src.gen_labelled_frames(og_test_images, og_test_labels, frame_width)
+        X_train, y_train = img_data_src.gen_labelled_frames_batches(og_train_images, og_train_labels, frame_width)
+        X_val, y_val = img_data_src.gen_labelled_frames_batches(og_val_images, og_val_labels, frame_width)
+        X_test, y_test = img_data_src.gen_labelled_frames_batches(og_test_images, og_test_labels, frame_width)
         
         # Additional (shape) dimensions for input tensor shapes
         num_classes = img_data_src.num_class_labels
@@ -66,7 +69,7 @@ class mainscript:
         
         conv_lstm_model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer=rms_optimizer)
         
-        # Train the model. To print the training history, set verbose to 1, otherwise 0 to hi
+        # Train the model. To print the training history, set verbose to 1, otherwise 0 to hide it
         history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=0, batch_size=bs, validation_data=(X_val, y_val))
         
         # Visualising the performance by plotting the training history

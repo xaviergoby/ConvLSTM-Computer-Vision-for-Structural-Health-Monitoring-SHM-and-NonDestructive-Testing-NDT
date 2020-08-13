@@ -6,7 +6,6 @@ from sklearn.preprocessing import OneHotEncoder
 from src.utils import file_manipulation_tools
 from src.utils import data_preprocessing
 
-
 class ImageDataHandler:
 
 	def __init__(self, dataset_dir_name):
