@@ -2,11 +2,11 @@ Dataset 1: FE simulation, 3 damage scenarios (6-9-15 classes), 1 sensor source
 Dataset 2: Experimental, 1 damage scenario (6 classes), 2 sensor sources
 Dataset 3: FE simulation, 3 damage scenarios (6-9-15 classes), 3 sensor sources
 
-Simulation: Dataset 1 (1 channel: Greyscale) and Dataset 3 (3 channels: RGB)
+Simulation: Dataset 1 (1 channel: Greyscale) and Dataset 3 (3 channels: RGB), first: 20-MAY, last: 27-AUG
 GRU Final Layer DO-0.25 + DO-0.50: 6 Days
 LSTM Final Layer Layer DO-0.25 + DO-0.50: 6 Days
 
-Experimental: Dataset 2 (2 channels: RG)
+Experimental: Dataset 2 (2 channels: RG), first: 29-AUG
 GRU Final Layer DO-0.25 + DO-0.50: 2 Days
 LSTM Final Layer DO-0.25 + DO-0.50: 2 Days
 
@@ -38,10 +38,10 @@ With GRU:
 
 With LSTM:
 
-( ) CNN-16-128-16-LSTMx2-do0.10-Dense
-( ) CNN-16-128-16-LSTMx2-do0.10-GlobalPool
-( ) CNN-16-128-16-LSTMx4-do0.10-Dense
-(-) CNN-16-128-16-LSTMx4-do0.10-GlobalPool
+(-) CNN-16-128-16-LSTMx2-do0.10-Dense
+(x) CNN-16-128-16-LSTMx2-do0.10-GlobalPool
+(x) CNN-16-128-16-LSTMx4-do0.10-Dense
+(x) CNN-16-128-16-LSTMx4-do0.10-GlobalPool
 
 (x) CNN-16-128-16-LSTMx2-do0.25-Dense
 (x) CNN-16-128-16-LSTMx2-do0.25-GlobalPool
