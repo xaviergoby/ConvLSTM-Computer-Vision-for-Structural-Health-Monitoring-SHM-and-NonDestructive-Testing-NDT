@@ -29,8 +29,8 @@ Syntax highlighted code block
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+Links:
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/xaviergoby/ConvLSTM-Computer-Vision-for-Structural-Health-Monitoring-SHM-and-NonDestructive-Testing-NDT/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
+[TU Delft](https://www.tudelft.nl/)
+[TU Delft NDT Labarotory](https://www.tudelft.nl/en/ae/organisation/departments/aerospace-structures-and-materials/structural-integrity-and-composites/facilities/aerospace-ndt-laboratory/)
 ![TUDelftLogo](/assets/TUDelftLogo.png) | ![TUDelftNDTLabLogo](/assets/TUDelftNDTLabLogo.PNG)
