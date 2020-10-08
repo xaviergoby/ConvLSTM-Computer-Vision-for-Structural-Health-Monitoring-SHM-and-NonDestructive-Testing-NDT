@@ -5,7 +5,7 @@ from keras.models import Model, Sequential
 from load_image_data import ImageDataSource
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-import settings
+import configs_and_settings
 
 # logdir = "logs/scalars/" + datetime.now().strftime("%Y%m%d-%H%M%S")
 # tensorboard = TensorBoard(log_dir=logdir)
@@ -34,11 +34,11 @@ def build_simple_cnn_feature_extractor_model(input_shape):
 	return cnn
 
 # CNN 2D Seq Model
-input_shape = settings.CNN_2D_INPUT_TENSOR_SHAPE
+input_shape = configs_and_settings.CNN_2D_INPUT_TENSOR_SHAPE
 cnn = build_simple_cnn_feature_extractor_model(input_shape)
 
 # TimeDistributed Func API Model
-video_input_tensor_shape = settings.TIME_DISTRIBUTED_MODEL_INPUT_TENSOR_SHAPE
+video_input_tensor_shape = configs_and_settings.TIME_DISTRIBUTED_MODEL_INPUT_TENSOR_SHAPE
 video_input_tensor = Input(shape=video_input_tensor_shape)
 td_model_output = TimeDistributed(cnn)(video_input_tensor)
 

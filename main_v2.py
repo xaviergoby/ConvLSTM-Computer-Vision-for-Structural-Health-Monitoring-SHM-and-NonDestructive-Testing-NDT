@@ -9,9 +9,9 @@ from keras.layers import TimeDistributed
 from keras.layers import Input
 from keras.models import Model
 #from src.data_tools.image_data import image_data_handler
-from matplotlib import pyplot as plt
-from src.data_handling_tools.image_data_tools import image_data_handler
+# from matplotlib import pyplot as plt
 import matplotlib.pyplot as plt
+from src.data_loading_tools.image_dataset_loaders import image_data_handler
 from src.cnn_models import cnn_models_collection
 from src.lstm_models import lstm_models_collection
 from src.utils import model_saving_funcs

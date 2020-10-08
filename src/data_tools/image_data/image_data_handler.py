@@ -19,12 +19,9 @@ class ImageDataHandler:
 									   "test": self.test_dir_path}
 		self.class_labels = list(map(int, file_manipulation_tools.get_file_folder_names_in_dir(self.training_dir_path)))
 		self.num_class_labels = len(self.class_labels)
-		self.num_training_images_per_label = file_manipulation_tools.get_num_files_folders_in_dir(os.path.join(self.training_dir_path,
-																											   str(self.class_labels[0])))
-		self.num_validation_images_per_label = file_manipulation_tools.get_num_files_folders_in_dir(os.path.join(self.validation_dir_path,
-																												 str(self.class_labels[0])))
-		self.num_test_images_per_label = file_manipulation_tools.get_num_files_folders_in_dir(os.path.join(self.test_dir_path,
-																										   str(self.class_labels[0])))
+		self.num_training_images_per_label = file_manipulation_tools.get_num_files_in_dir(os.path.join(self.training_dir_path, str(self.class_labels[0])))
+		self.num_validation_images_per_label = file_manipulation_tools.get_num_files_in_dir(os.path.join(self.validation_dir_path, str(self.class_labels[0])))
+		self.num_test_images_per_label = file_manipulation_tools.get_num_files_in_dir(os.path.join(self.test_dir_path, str(self.class_labels[0])))
 		self.tot_num_training_images = self.num_class_labels * self.num_training_images_per_label
 		self.tot_num_validation_images = self.num_class_labels * self.num_validation_images_per_label
 		self.tot_num_test_images = self.num_class_labels * self.num_test_images_per_label
@@ -36,8 +33,7 @@ class ImageDataHandler:
 	def get_dataset_file_paths_by_label(self, label, dataset_name):
 		labelled_dataset_file_names = self.get_dataset_file_names_by_label(label, dataset_name)
 		labelled_dataset_dir_path = os.path.join(self.data_subset_paths_dict[dataset_name], str(label))
-		img_file_paths = [os.path.join(labelled_dataset_dir_path, img_file_name) for img_file_name in
-						  labelled_dataset_file_names]
+		img_file_paths = [os.path.join(labelled_dataset_dir_path, img_file_name) for img_file_name in labelled_dataset_file_names]
 		return img_file_paths
 
 	def get_dataset_label_file_paths_dict(self, dataset_name):
@@ -58,12 +54,25 @@ class ImageDataHandler:
 				label_i_img_arrays.append(img_array)
 			img_arrays_dict[class_label] = label_i_img_arrays
 		return img_arrays_dict
+		
+	# @staticmethod
+	def one_hot_encode_class_labels(self, y):
+		"""
+		This method is meant for converting/transforming a/your np.ndarray of
+		integer encode class labels into a one hot encoded format.
+		:param y: array type of outputs
+		:return: 2D array type of one-hot encoding transformation result
+		"""
+		y_reshaped = y.reshape((y.shape[0], 1))
+		one_hot_encoder = OneHotEncoder(sparse=False)
+		y_ohe_cls_labels = one_hot_encoder.fit_transform(y_reshaped)
+		return y_ohe_cls_labels
 	
-	def one_got_encode_class_labels(self, y):
-		y = y.reshape((y.shape[0], 1))
-		onehot_encoder = OneHotEncoder(sparse=False)
-		y = onehot_encoder.fit_transform(y)
-		return y
+	# def one_hot_encode_class_labels(self, y):
+	# 	y = y.reshape((y.shape[0], 1))
+	# 	onehot_encoder = OneHotEncoder(sparse=False)
+	# 	y = onehot_encoder.fit_transform(y)
+	# 	return y
 	
 	def get_dataset_images_and_labels(self, dataset, mode="rgb"):
 		"""
@@ -93,7 +102,7 @@ class ImageDataHandler:
 		# if max_img_width is not None:
 		# 	X_array = self.trim_images_width(X_array, max_img_width)
 		y_array = np.asarray(y_list)
-		y_1_hot_encoded_array = self.one_got_encode_class_labels(y_array)
+		y_1_hot_encoded_array = self.one_hot_encode_class_labels(y_array)
 		return X_array, y_1_hot_encoded_array
 
 	@staticmethod
@@ -147,7 +156,7 @@ if __name__ == "__main__":
 	data_dir_name = "scenario_1"
 	dataset_dir_name = "training"
 	# train_dataset_dir_name = "test"
-	src = ImageDataHandler(data_dir_name)
+	src = ImageDataSetLoader(data_dir_name)
 	print(f"src.class_labels: {src.class_labels}")
 	print(f"src.num_class_labels: {src.num_class_labels}")
 	print(f"src.num_training_images: {src.num_training_images_per_label}")
@@ -158,7 +167,7 @@ if __name__ == "__main__":
 	max_img_width = data_preprocessing.get_compatible_img_and_frame_widths(img_width, frame_width)
 	channels_rgb = "rgb"
 	channels_gray = "gray_scale"
-	X, y = src.get_dataset_images_and_labels(dataset_dir_name, channels_rgb)
+	X, y = src._load_dataset_split(dataset_dir_name, channels_rgb)
 	frames, labels = src.gen_labelled_frames(X, y, frame_width)
 	print(f"frames.shape: {frames.shape}")
 	print(f"labels.shape: {labels.shape}")
