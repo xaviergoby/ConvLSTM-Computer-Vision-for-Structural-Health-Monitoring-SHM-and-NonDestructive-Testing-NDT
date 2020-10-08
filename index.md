@@ -29,8 +29,13 @@ Syntax highlighted code block
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-Links:
+Links:\
 
 [TU Delft](https://www.tudelft.nl/)\   
-[TU Delft NDT Labarotory](https://www.tudelft.nl/en/ae/organisation/departments/aerospace-structures-and-materials/structural-integrity-and-composites/facilities/aerospace-ndt-laboratory/)\    
+[TU Delft NDT Labarotory](https://www.tudelft.nl/en/ae/organisation/departments/aerospace-structures-and-materials/structural-integrity-and-composites/facilities/aerospace-ndt-laboratory/)\
+\
+\
 ![TUDelftLogo](/assets/TUDelftLogo.png) | ![TUDelftNDTLabLogo](/assets/TUDelftNDTLabLogo.PNG)
+\
+\
+\
