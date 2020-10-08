@@ -1,8 +1,9 @@
-## Welcome to GitHub Pages
+## "Sequential Modelling in Data-Driven Approach for Structural Health Monitoring by Recurrent Convolutional Neural Networks"
 
-You can use the [editor on GitHub](https://github.com/xaviergoby/ConvLSTM-Computer-Vision-for-Structural-Health-Monitoring-SHM-and-NonDestructive-Testing-NDT/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Conference: 20th World Conference on Non-Destructive Testing
+Location & Date: South Korea, Seoul - June 2020
+Co-authors: Ewald V., Goby X., Groves R.M. & Benedictus R.
+Labarotory: TU Delft Aerospace NDT Lab
 
 ### Markdown
 
