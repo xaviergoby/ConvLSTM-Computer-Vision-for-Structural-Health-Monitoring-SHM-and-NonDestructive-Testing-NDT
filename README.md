@@ -1,6 +1,8 @@
-# ConvLSTM-Computer-Vision-for-Structural-Health-Monitoring-SHM-and-NonDestructive-Testing-NDT
-Application of LSTM network for Structural Health Monitoring &amp; Non-Destructive Testing
-# "Sequential Modelling in Data-Driven Approach for Structural Health Monitoring by Recurrent Convolutional Neural Networks"
+# ConvLSTM-Computer-Vision-for-Structural-Health-Monitoring-SHM-and-NonDestructive-Testing-NDT<br>
+
+## "Sequential Modelling in Data-Driven Approach for Structural Health Monitoring by Recurrent Convolutional Neural Networks"<br>
+
+Application of LSTM network for Structural Health Monitoring &amp; Non-Destructive Testing<br>
 
 Conference: 20th World Conference on Non-Destructive Testing<br>
 Location & Date: South Korea, Seoul - June 2020<br>
