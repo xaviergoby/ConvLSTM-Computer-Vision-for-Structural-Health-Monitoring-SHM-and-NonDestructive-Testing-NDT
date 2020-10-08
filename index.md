@@ -1,9 +1,9 @@
 ## "Sequential Modelling in Data-Driven Approach for Structural Health Monitoring by Recurrent Convolutional Neural Networks"
 
-Conference: 20th World Conference on Non-Destructive Testing    
-Location & Date: South Korea, Seoul - June 2020   
-Co-authors: Ewald V., Goby X., Groves R.M. & Benedictus R.    
-Labarotory: TU Delft Aerospace NDT Lab    
+Conference: 20th World Conference on Non-Destructive Testing\    
+Location & Date: South Korea, Seoul - June 2020\   
+Co-authors: Ewald V., Goby X., Groves R.M. & Benedictus R.\    
+Labarotory: TU Delft Aerospace NDT Lab\    
 
 ### Markdown
 
@@ -31,6 +31,6 @@ For more details see [GitHub Flavored Markdown](https://guides.github.com/featur
 
 Links:
 
-[TU Delft](https://www.tudelft.nl/)   
-[TU Delft NDT Labarotory](https://www.tudelft.nl/en/ae/organisation/departments/aerospace-structures-and-materials/structural-integrity-and-composites/facilities/aerospace-ndt-laboratory/)    
+[TU Delft](https://www.tudelft.nl/)\   
+[TU Delft NDT Labarotory](https://www.tudelft.nl/en/ae/organisation/departments/aerospace-structures-and-materials/structural-integrity-and-composites/facilities/aerospace-ndt-laboratory/)\    
 ![TUDelftLogo](/assets/TUDelftLogo.png) | ![TUDelftNDTLabLogo](/assets/TUDelftNDTLabLogo.PNG)
