@@ -5,6 +5,8 @@ Location & Date: South Korea, Seoul - June 2020<br>
 Co-authors: Ewald V., Goby X., Groves R.M. & Benedictus R.<br>
 Labarotory: TU Delft Aerospace NDT Lab<br>
 
+![WorkFlowViz](/assets/data_use_flow_viz.png)<br>
+
 ## Requirements:
 
 - Python==3.7
