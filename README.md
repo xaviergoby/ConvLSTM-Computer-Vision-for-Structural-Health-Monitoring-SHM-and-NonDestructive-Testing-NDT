@@ -31,6 +31,10 @@ Labarotory: TU Delft Aerospace NDT Lab<br>
 - scikit-learn=0.22.1
 - scipy=1.4.1
 
+I would like to wholeheartedly express my sincere gratitude towards Vincentius Ewald & Mr. Roger Groves<br>
+for having provided me with this mmarvellous opportunity to collaborate with them on this research project.<br>
+I will never be able to thank them enough.<br>
+
 
 Links:<br>
 [TU Delft](https://www.tudelft.nl/)<br>
