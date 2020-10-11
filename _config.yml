@@ -1,1 +1,9 @@
+# Any file that contains a YAML front matter block will be processed by Jekyll as a special file. 
+# The front matter must be the first thing in the file and must take the form of valid YAML set between triple-dashed lines. Here is a basic example:
+# 
 theme: jekyll-theme-minimal
+title: Sequential Modelling in Data-Driven Approach for Structural Health Monitoring by Recurrent Convolutional Neural Networks
+# baseurl: "/example" # the subpath of your site, e.g. /blog/
+baseurl: "/Sequential_Modelling_in_Data-Driven_Approach_for_Structural_Health_Monitoring_by_Recurrent_Convolutional_Neural_Networks" # the subpath of the site
+# url: "http://jekyll.github.io" # the base hostname & protocol for your site
+url: "https://xaviergoby.github.io/" # the basename & protocol of the site
