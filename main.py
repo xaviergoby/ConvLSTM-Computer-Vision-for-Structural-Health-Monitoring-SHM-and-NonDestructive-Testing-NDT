@@ -1,12 +1,12 @@
 from keras.layers import TimeDistributed
 from keras.layers import Input
 from keras.models import Model
-from src.data_handling_tools.image_data_tools import load_image_data2
-from src.data_handling_tools.image_data_tools import load_image_data
-from src.data_handling_tools.image_data_tools import image_data_handler
+from src.data_loading_tools.image_dataset_loaders import load_image_data2
+from src.data_loading_tools.image_dataset_loaders import load_image_data
+from src.data_loading_tools.image_dataset_loaders import image_data_handler
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-import settings
+import configs_and_settings
 from src.cnn_models import cnn_models_collection
 from src.lstm_models import lstm_models_collection
 from src.utils import model_saving_funcs
@@ -17,24 +17,24 @@ img_data_handler = image_data_handler.ImageDataHandler(data_dir_name)
 
 
 # Frame shape dimensions for input tensor shapes
-height = settings.FRAME_HEIGHT
-width = settings.FRAME_WIDTH
-channels = settings.FRAME_CHANNELS
+height = configs_and_settings.FRAME_HEIGHT
+width = configs_and_settings.FRAME_WIDTH
+channels = configs_and_settings.FRAME_CHANNELS
 # Additional (shape) dimensions for input tensor shapes
-num_classes = settings.NUM_CLASSES # \\TODO change
+num_classes = configs_and_settings.NUM_CLASSES # \\TODO change
 # num_classes = img_data_src.num_class_labels \\TODO Replace above line with this one
-batches_num = settings.NUM_IMGS  # number of batches \\TODO redundant
-frames_num = settings.NUM_FRAMES  # number of sequential samples \\TODO redundant
+batches_num = configs_and_settings.NUM_IMGS  # number of batches \\TODO redundant
+frames_num = configs_and_settings.NUM_FRAMES  # number of sequential samples \\TODO redundant
 
 # CNN 2D Seq Model
 # 3D tensor shape which stores a single frame: (FRAME_HEIGHT, FRAME_WIDTH, FRAME_CHANNELS)
-cnn_model_input_tensor_shape = settings.CNN_2D_INPUT_TENSOR_SHAPE
+cnn_model_input_tensor_shape = configs_and_settings.CNN_2D_INPUT_TENSOR_SHAPE
 # cnn_model_input_tensor_shape =
 cnn_model = cnn_models_collection.build_simple_cnn_feature_extractor_seq_model(cnn_model_input_tensor_shape)
 
 # TimeDistributed Func API Model
 # # 4D tensor shape storing a sequence of frames: (NUM_FRAMES, FRAME_HEIGHT, FRAME_WIDTH, FRAME_CHANNELS)
-td_video_input_tensor_shape = settings.TIME_DISTRIBUTED_MODEL_INPUT_TENSOR_SHAPE
+td_video_input_tensor_shape = configs_and_settings.TIME_DISTRIBUTED_MODEL_INPUT_TENSOR_SHAPE
 td_video_input_tensor = Input(shape=td_video_input_tensor_shape)
 td_model_output = TimeDistributed(cnn_model)(td_video_input_tensor)
 
@@ -60,7 +60,7 @@ X = frames
 y = labels
 
 # Partition dataset
-test_split = settings.TEST_DATASET_FRACTION
+test_split = configs_and_settings.TEST_DATASET_FRACTION
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=test_split, shuffle=True)
 
 # In keras, fit() is much similar to sklearn's fit method, where you pass array of features as x values and target as y_train values.

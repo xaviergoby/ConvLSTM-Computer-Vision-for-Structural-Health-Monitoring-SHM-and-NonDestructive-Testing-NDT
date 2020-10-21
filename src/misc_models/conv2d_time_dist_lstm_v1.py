@@ -6,7 +6,7 @@ from keras.layers import Conv2D, MaxPooling2D, Flatten
 from keras.layers import Input, LSTM, Dense
 from keras.models import Model
 from keras.preprocessing.image import ImageDataGenerator
-import settings
+import configs_and_settings
 from sklearn.preprocessing import OneHotEncoder
 from load_image_data import ImageDataSource
 batch_size = 1

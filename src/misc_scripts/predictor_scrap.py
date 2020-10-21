@@ -9,7 +9,7 @@ from keras.preprocessing import image
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-# from configs_and_settings.settings import general_settings_obj
+# from configs_and_settings.configs_and_settings import general_settings_obj
 # from utils.visualiser import Visualiser
 
 

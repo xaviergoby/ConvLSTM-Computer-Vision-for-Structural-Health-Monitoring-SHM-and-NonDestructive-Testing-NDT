@@ -1,4 +1,4 @@
-import settings
+import configs_and_settings
 import csv
 import os
 

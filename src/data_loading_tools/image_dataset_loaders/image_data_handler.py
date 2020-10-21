@@ -9,6 +9,11 @@ from src.utils import data_preprocessing
 class ImageDataHandler:
 
 	def __init__(self, dataset_dir_name):
+		"""
+		The purpose of this class is to:
+			-
+		:param dataset_dir_name: str of the name of the dir/folder containing the dataset
+		"""
 		self.dataset_dir_name = dataset_dir_name
 		self.dataset_dir_path = os.path.join(settings.IMAGES_DIR, self.dataset_dir_name)
 
@@ -33,52 +38,7 @@ class ImageDataHandler:
 		self.tot_num_training_images = self.num_class_labels * self.num_training_images_per_label
 		self.tot_num_validation_images = self.num_class_labels * self.num_validation_images_per_label
 		self.tot_num_test_images = self.num_class_labels * self.num_test_images_per_label
-
-	@staticmethod
-	def one_got_encode_class_labels(y):
-		"""
-		This staticmethod is meant for converting/transforming a/your np.ndarray of
-		integer encode class labels into a one hot encoded format.
-		:param y:
-		:return:
-		"""
-		y_reshaped = y.reshape((y.shape[0], 1))
-		one_hot_encoder = OneHotEncoder(sparse=False)
-		y_ohe_cls_labels = one_hot_encoder.fit_transform(y_reshaped)
-		return y_ohe_cls_labels
-
-	def get_dataset_images_and_labels(self, dataset_split_name, mode="rgb"):
-		"""
-		:param dataset_split_name: e.g. "training"
-		:param mode: Is "rgb" (for frame_channels=0) by def. mode="gray_scale" loads dataset_split_name
-		in gray scale format (frame_channels=1).
-		:return: np.ndarray with shape of (# of image_datasets, frame_height, frame_width, frame_channels)
-		"""
-		X_list = []
-		y_list = []
-		for class_label in self.class_labels:
-			label_i_dir_path = os.path.join(self.data_subset_paths_dict[dataset_split_name], str(class_label))
-			label_i_dir_file_names = os.listdir(label_i_dir_path)
-			for img_i_name in label_i_dir_file_names:
-				img_i_path = os.path.join(label_i_dir_path, img_i_name)
-				if mode == "rgb":
-					img_array = cv2.imread(img_i_path, cv2.COLOR_BGR2RGB)
-				elif mode == "gray_scale":
-					img_array_brg = cv2.imread(img_i_path)
-					img_array = cv2.cvtColor(img_array_brg, cv2.COLOR_BGR2GRAY)
-					# print(f"img_array.shape: {img_array.shape}")
-					img_array = np.expand_dims(img_array, axis=-1)
-					# print(f"img_array.shape: {img_array.shape}")
-				else:
-					print("Invalid argument passed to parameter mode. Parameter mode may only be 'rgb' or 'gray_scale'!")
-					break
-				X_list.append(img_array)
-				y_list.append(class_label)
-		X_array = np.asarray(X_list)
-		y_array = np.asarray(y_list)
-		y_ohe_cls_labels_array = ImageDataHandler.one_got_encode_class_labels(y_array)
-		return X_array, y_ohe_cls_labels_array
-
+	
 	def load_dataset(self, dataset_split_name=None, mode="rgb"):
 		"""
 		:param dataset_split_name: str of the name of the data split to load. Is None by def and if
@@ -107,6 +67,53 @@ class ImageDataHandler:
 		elif dataset_split_name is not None:
 			dataset_split = self.get_dataset_images_and_labels(dataset_split_name=dataset_split_name, mode=mode)
 			return dataset_split[0], dataset_split[1]
+	
+	def get_dataset_images_and_labels(self, dataset_split_name, mode="rgb"):
+		"""
+		:param dataset_split_name: e.g. "training"
+		:param mode: Is "rgb" (for frame_channels=0) by def. mode="gray_scale" loads dataset_split_name
+		in gray scale format (frame_channels=1).
+		:return: np.ndarray with shape of (# of image_datasets, frame_height, frame_width, frame_channels)
+		"""
+		X_list = []
+		y_list = []
+		for class_label in self.class_labels:
+			label_i_dir_path = os.path.join(self.data_subset_paths_dict[dataset_split_name], str(class_label))
+			label_i_dir_file_names = os.listdir(label_i_dir_path)
+			for img_i_name in label_i_dir_file_names:
+				img_i_path = os.path.join(label_i_dir_path, img_i_name)
+				if mode == "rgb":
+					img_array = cv2.imread(img_i_path, cv2.COLOR_BGR2RGB)
+				elif mode == "gray_scale":
+					img_array_brg = cv2.imread(img_i_path)
+					# img_array = cv2.cvtColor(img_array_brg_normed, cv2.COLOR_BGR2GRAY)
+					img_array = cv2.cvtColor(img_array_brg, cv2.COLOR_BGR2GRAY)
+					img_array = data_preprocessing.normalize_img(img_array)
+					# print(f"img_array.shape: {img_array.shape}")
+					img_array = np.expand_dims(img_array, axis=-1)
+				# print(f"img_array.shape: {img_array.shape}")
+				else:
+					print("Invalid argument passed to parameter mode. Parameter mode may only be 'rgb' or 'gray_scale'!")
+					break
+				X_list.append(img_array)
+				y_list.append(class_label)
+		X_array = np.asarray(X_list)
+		y_array = np.asarray(y_list)
+		y_ohe_cls_labels_array = ImageDataHandler.one_got_encode_class_labels(y_array)
+		return X_array, y_ohe_cls_labels_array
+	
+	@staticmethod
+	def one_got_encode_class_labels(y):
+		"""
+		This staticmethod is meant for converting/transforming a/your np.ndarray of
+		integer encode class labels into a one hot encoded format.
+		:param y:
+		:return:
+		"""
+		y_reshaped = y.reshape((y.shape[0], 1))
+		one_hot_encoder = OneHotEncoder(sparse=False)
+		y_ohe_cls_labels = one_hot_encoder.fit_transform(y_reshaped)
+		return y_ohe_cls_labels
 
 	@staticmethod
 	def trim_images_width(X, max_img_width):
@@ -147,7 +154,7 @@ class ImageDataHandler:
 		return all_X_frames, y
 
 	# def get_img_data_frames_and_labels(self, frame_width, dataset_name):
-	# 	dataset = self.get_dataset_images_and_labels(dataset_name, mode="rgb")
+	# 	dataset = self._load_dataset_split(dataset_name, mode="rgb")
 	# 	X = dataset[0]
 	# 	y = dataset[1]
 	# 	all_X_frames = self.gen_img_frames(X, frame_width)
@@ -171,7 +178,7 @@ if __name__ == "__main__":
 	max_img_width = data_preprocessing.get_compatible_img_and_frame_widths(img_width, frame_width)
 	channels_rgb = "rgb"
 	channels_gray = "gray_scale"
-	# X, y = src.get_dataset_images_and_labels(dataset_dir_name, channels_rgb)
+	# X, y = src._load_dataset_split(dataset_dir_name, channels_rgb)
 	input_dataset_splits, target_dataset_splits = src.load_dataset(mode="rgb")
 	X = input_dataset_splits[0]
 	y = target_dataset_splits[0]

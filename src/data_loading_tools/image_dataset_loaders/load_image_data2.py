@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 import cv2
-import settings
+import configs_and_settings
 import os
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
@@ -16,13 +16,13 @@ class ImageDataSource:
 	
 	def __init__(self, dir_name, train_dir_path=r"data\images\train", validation_dir_path=r"data\images\validation", test_dir_path=r"data\images\test"):
 		self.dir_name = dir_name
-		self.data_dir_path = os.path.join(settings.IMAGES_DIR, dir_name)
+		self.data_dir_path = os.path.join(configs_and_settings.IMAGES_DIR, dir_name)
 		self.train_dir_path = os.path.join(self.data_dir_path, "training")
 		self.validation_dir_path = os.path.join(self.data_dir_path, "validation")
 		self.test_dir_path = os.path.join(self.data_dir_path, "test")
-		# self.validation_dir_path = settings.VAL_DIR_PATH
-		# self.test_dir_path = settings.TEST_DIR_PATH
-		# self.test_dir_path = settings.TEST_DIR_PATH
+		# self.validation_dir_path = configs_and_settings.VAL_DIR_PATH
+		# self.test_dir_path = configs_and_settings.TEST_DIR_PATH
+		# self.test_dir_path = configs_and_settings.TEST_DIR_PATH
 		# self.ref_dir = self.test_dir_path
 		self.data_subset_paths_dict = {"training":self.train_dir_path, "validation":self.validation_dir_path, "test":self.test_dir_path}
 		# self.data_dir_paths_dict = {"train": self.train_dir_path, "validation": self.validation_dir_path,
@@ -64,10 +64,10 @@ class ImageDataSource:
 		
 		return img_arrays_dict
 	
-	def get_right_end_trimmed_imgs_dataset(self, max_img_width=settings.MAX_VALID_IMG_WIDTH, dataset_name="training"):
+	def get_right_end_trimmed_imgs_dataset(self, max_img_width=configs_and_settings.MAX_VALID_IMG_WIDTH, dataset_name="training"):
 		"""
 		:param max_img_width: the max allowable frame_width of each img, should obv be less than or = to  the original frame_width of an image(es).
-		Is settings.MAX_VALID_IMG_WIDTH (=4100) by def.
+		Is configs_and_settings.MAX_VALID_IMG_WIDTH (=4100) by def.
 		:param dataset_name: name of the subset of image_datasets data, i.e. "training", "validation" or "test". Is "test" by def
 		:return:
 		"""
@@ -135,7 +135,7 @@ class ImageDataSource:
 		frames_array = np.asarray(frames)
 		return frames_array
 	
-	def get_img_data_frames_and_labels(self, frame_width=settings.FRAME_WIDTH, max_img_width=settings.MAX_VALID_IMG_WIDTH, dataset_name="training"):
+	def get_img_data_frames_and_labels(self, frame_width=configs_and_settings.FRAME_WIDTH, max_img_width=configs_and_settings.MAX_VALID_IMG_WIDTH, dataset_name="training"):
 		dataset = self.get_right_end_trimmed_imgs_dataset(max_img_width, dataset_name)
 		X = dataset[0]
 		y = dataset[1]

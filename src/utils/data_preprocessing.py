@@ -1,3 +1,6 @@
+import cv2
+import numpy as np
+from sklearn.preprocessing import OneHotEncoder
 
 def get_compatible_img_and_frame_widths(img_width, frame_width):
 	"""
@@ -18,6 +21,40 @@ def get_compatible_img_and_frame_widths(img_width, frame_width):
 	if (abs(img_width - n1) < abs(img_width - n2)):
 		return n1
 	return n2
+
+def normalize_img(img):
+	if len(img.shape) == 3:
+		if img.shape[-1] != 1:
+	# if img.shape[-1] != 1:
+			img_bgr = img
+			img = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
+	img_place_holder = np.zeros(img.shape)
+	img_normed = cv2.normalize(img,  img_place_holder, 0, 255, cv2.NORM_MINMAX)
+	return img_normed
+	
+def ohe_class_labels(y):
+	"""
+	This method is meant for converting/transforming a/your np.ndarray of
+	integer encode class labels into a one hot encoded format.
+	:param y: array type of outputs
+	:return: 2D array type of one-hot encoding transformation result
+	"""
+	y_reshaped = y.reshape((y.shape[0], 1))
+	one_hot_encoder = OneHotEncoder(sparse=False)
+	y_ohe_cls_labels = one_hot_encoder.fit_transform(y_reshaped)
+	return y_ohe_cls_labels
+
+def convert_rgb_img_to_grey_scale(rgb_img):
+	grey_scale_img = cv2.cvtColor(rgb_img, cv2.COLOR_BGR2GRAY)
+	return grey_scale_img
+
+def convert_rgb_images_dataset_to_grey_scale(rgb_images_array):
+	grey_scale_images_list = []
+	for rgb_img_i in range(len(rgb_images_array.shape[0])):
+		grey_scale_img = convert_rgb_img_to_grey_scale(rgb_images_array[rgb_img_i])
+		grey_scale_images_list.append(grey_scale_img)
+	grey_scale_images_array = np.array(grey_scale_images_list)
+	return grey_scale_images_array
 
 
 #if __name__ == "__main__":
