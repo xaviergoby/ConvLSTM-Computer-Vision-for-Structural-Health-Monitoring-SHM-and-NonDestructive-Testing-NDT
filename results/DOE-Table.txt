@@ -38,7 +38,7 @@ With GRU:
 
 With LSTM:
 
-(-) CNN-16-128-16-LSTMx2-do0.10-Dense
+(x) CNN-16-128-16-LSTMx2-do0.10-Dense
 (x) CNN-16-128-16-LSTMx2-do0.10-GlobalPool
 (x) CNN-16-128-16-LSTMx4-do0.10-Dense
 (x) CNN-16-128-16-LSTMx4-do0.10-GlobalPool

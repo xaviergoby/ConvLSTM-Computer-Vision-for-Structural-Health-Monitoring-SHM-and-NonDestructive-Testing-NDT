@@ -1,5 +1,6 @@
 import os
 #os.environ["CUDA_VISIBLE_DEVICES"] = "-1" #Activate this line to use CPU only
+os.environ["CUDA_VISIBLE_DEVICES"] = "0" #Activate this line to use CPU only
 os.environ["PATH"] += os.pathsep + 'F:/WinPython64/python-3.7.7.amd64/Lib/graphviz-2.38/bin/' #Set path environment for graphviz library
 
 #Importing Keras, TF Backend, and functions from /src
@@ -70,7 +71,7 @@ class mainscript:
         conv_lstm_model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer=rms_optimizer)
         
         # Train the model. To print the training history, set verbose to 1, otherwise 0 to hide it
-        history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=0, batch_size=bs, validation_data=(X_val, y_val))
+        history = conv_lstm_model.fit(X_train, y_train, epochs=num_epochs, verbose=1, batch_size=bs, validation_data=(X_val, y_val))
         
         # Visualising the performance by plotting the training history
         fig, ax1 = plt.subplots(figsize=(12, 8))
