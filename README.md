@@ -11,9 +11,9 @@
 **Status:** Working Paper
 **Personal Role/Contribution:** Development of distinct Recurrent CNN architecture spatio-temporal models. Evaluation of the performance & level of instability of each architecture @ time of inference.
 <br>
-<br>
-<br>
-&
+<p align="center">
+    <b> & </b>
+</p>
 
 ### II] _On Stability of Sequential Modelling in Data Driven Predictive Maintenance: A Study Case Using CNN-LSTM for DeepSHM_
 
